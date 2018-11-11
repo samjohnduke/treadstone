@@ -1,22 +1,40 @@
-import * as React from 'react';
+import * as React from 'react'; 
 import './App.css';
 
-import logo from './logo.svg';
+import { Router } from "@reach/router";
+
+import { AboutPage } from './pages/about';
+import { AuthPage } from './pages/auth';
+import { CorePage } from './pages/core';
+import { HomePage } from './pages/home';
+import { PricingPage } from './pages/pricing';
+import { RegisterPage } from './pages/register';
+
+import * as Routes from './constants/routes';
+import { withAuthentication } from './firebase/withAuthentication';
+import { ForgotPasswordPage } from './pages/forgotPassword';
+
 
 class App extends React.Component {
+  constructor(props: {}) {
+    super(props)
+  }
+
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Router>
+            <AuthPage path={Routes.AUTHENTICATE} />
+            <RegisterPage path={Routes.REGISTER} />
+            <ForgotPasswordPage path={Routes.FORGOTTEN_PASSWORD} />
+            <AboutPage path={Routes.ABOUT} />
+            <PricingPage path={Routes.PRICING} />
+            <CorePage path={Routes.APP} />
+            <HomePage path={Routes.HOME} />
+        </Router>
       </div>
     );
   }
 }
 
-export default App;
+export default withAuthentication(App);
