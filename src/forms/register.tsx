@@ -1,4 +1,4 @@
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import { InjectedFormikProps, withFormik } from "formik";
 import * as React from "react";
 
@@ -108,8 +108,7 @@ export const Register = withFormik<FormProps, FormValues>({
   handleSubmit: (values, { setSubmitting, setStatus }) => {
     doCreateUserWithEmailAndPassword(values.email, values.password)
       .then(creds => {
-        //
-        console.log(creds);
+        navigate("/core");
         setSubmitting(false);
       })
       .catch(e => {

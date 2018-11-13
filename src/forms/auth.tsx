@@ -1,4 +1,4 @@
-import { Link } from "@reach/router";
+import { Link, LocationContext } from "@reach/router";
 import { InjectedFormikProps, withFormik } from "formik";
 import { History } from "history";
 import * as React from "react";
@@ -22,7 +22,7 @@ interface FormProps {
   password?: string;
 }
 
-type AllFormProps = FormProps & { history: History };
+type AllFormProps = FormProps & { history: History; location: LocationContext };
 
 class InnerForm extends React.Component<
   InjectedFormikProps<AllFormProps, FormValues>
@@ -85,6 +85,7 @@ export const Auth = withAuthorization(user => (user ? false : true), APP)(
       setSubmitting(true);
       doSignInWithEmailAndPassword(values.email, values.password)
         .then(user => {
+          props.location.navigate("/core");
           setSubmitting(false);
         })
         .catch(e => {

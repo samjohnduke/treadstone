@@ -8,7 +8,7 @@ import { UserProps } from "src/firebase/withUser";
 
 type Props = UserProps & RouteComponentProps;
 
-export class Core extends React.Component<Props> {
+export class Core extends React.Component {
   public cl(e: React.SyntheticEvent<HTMLElement>) {
     console.log(e);
   }
