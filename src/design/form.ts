@@ -2,7 +2,6 @@ import styled from "src/styled";
 
 export const Form = styled.form`
   flex: 1;
-  width: 350px; 
   padding: 40px 30px 100px;
   display: flex;
   flex-direction: column;
@@ -10,11 +9,11 @@ export const Form = styled.form`
 
   & h1 {
     font-size: 1.4em;
-    color: rgba(0,0,0,0.4);
+    color: rgba(0, 0, 0, 0.4);
     margin-bottom: 60px;
 
     a {
-      color: rgba(0,0,0,0.4);
+      color: rgba(0, 0, 0, 0.4);
       text-decoration: none;
     }
   }
@@ -26,16 +25,16 @@ export const Form = styled.form`
 
   & h3 {
     margin: 10px 0 30px 0;
-    color: rgba(0,0,0,0.4);
+    color: rgba(0, 0, 0, 0.4);
     font-size: 0.9em;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 
   a {
     font-size: 1em;
     color: rgba(0, 0, 0, 0.8);
   }
-`
+`;
 
 export const FormBar = styled.div`
   display: flex;
@@ -51,4 +50,4 @@ export const FormBar = styled.div`
     flex-direction: column;
     text-align: right;
   }
-`
+`;
