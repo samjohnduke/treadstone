@@ -6,6 +6,8 @@ import { doSignOut } from "src/firebase/auth";
 import { withAuthorization } from "src/firebase/withAuthorisation";
 import { UserProps } from "src/firebase/withUser";
 
+import "src/firebase/firestore";
+
 type Props = UserProps & RouteComponentProps;
 
 export class Core extends React.Component {
@@ -16,12 +18,14 @@ export class Core extends React.Component {
   public render() {
     return (
       <Page>
-        <h1>
-          <Link to={HOME}>Tread</Link>
-        </h1>
+        <div>
+          <h1>
+            <Link to={HOME}>Tread</Link>
+          </h1>
 
-        <input type="text" />
-        <a onClick={doSignOut}>Sign out</a>
+          <input type="text" />
+          <a onClick={doSignOut}>Sign out</a>
+        </div>
       </Page>
     );
   }

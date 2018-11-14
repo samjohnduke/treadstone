@@ -1,7 +1,9 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
-import * as Fire from '../constants/firebase';
+import "firebase/firestore";
+
+import * as Fire from "../constants/firebase";
 
 const config = {
   apiKey: Fire.API_KEY,
@@ -18,3 +20,4 @@ if (!firebase.apps.length) {
 
 export const auth = firebase.auth();
 export const db = firebase.database();
+export const firestore = firebase.firestore();
