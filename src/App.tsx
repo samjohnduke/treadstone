@@ -14,6 +14,8 @@ import * as Routes from "./constants/routes";
 import { withAuthentication } from "./firebase/withAuthentication";
 import { ForgotPasswordPage } from "./pages/forgotPassword";
 
+import "src/models/todo";
+
 class App extends React.Component {
   constructor(props: {}) {
     super(props);
