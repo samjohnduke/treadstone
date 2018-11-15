@@ -1,7 +1,8 @@
 import { Record } from "immutable";
-import { Doc, LiveCollection } from "src/firebase/firestore";
+import { Doc } from "src/firebase/firestore";
+import { LiveStore, Reducer } from './store';
 
-export interface Todo {
+export interface ITodo {
   color: string;
   completedAt: number | undefined;
   content: string;
@@ -13,7 +14,7 @@ export interface Todo {
   estimations: number[];
 }
 
-export const TodoInstance = Record<Todo>({
+export const TodoRecord = Record({
   color: "white",
   completedAt: undefined,
   content: "",
@@ -25,16 +26,40 @@ export const TodoInstance = Record<Todo>({
   tags: ["new"]
 });
 
-export type TodoRecord = Record<Todo>;
+export class Todo extends TodoRecord implements ITodo {
+  public color: string;
+  public completedAt: number | undefined;
+  public content: string;
+  public createdAt: number;
+  public dueAt: number | undefined;
+  public id: number;
+  public ownerId: string;
+  public tags: string[];
+  public estimations: number[];
 
-export const TodoFactory = (doc: Doc): TodoRecord => {
-  return new TodoInstance(doc.data());
+  constructor(props: ITodo) {
+    super(props)
+  }
+}
+
+export const TodoFactory = (doc: Doc): Todo => {
+  return new Todo(doc.data() as ITodo);
 };
 
-export const TodoCollection = new LiveCollection<TodoRecord>(
-  "/todos",
-  TodoFactory
-);
+export interface TodoState {
+  todos: {[key: string]: string}
+}
+
+const reducer: Reducer<TodoState, Action<Todo>> = (state, action) => {
+  return state
+}
+
+export const TodoStore = new LiveStore(
+  "/todo", 
+  {},
+  TodoFactory, 
+  reducer,
+)
 
 export interface Action<T> {
   action: string;
@@ -47,3 +72,17 @@ export const Add = (todo: Todo): Action<Todo> => {
     payload: todo
   };
 };
+
+export const Modify = (todo: Todo): Action<Todo> => {
+  return {
+    action: "@todo/modify", 
+    payload: todo
+  }
+}
+
+export const Remove = (todo: Todo): Action<Todo> => {
+  return {
+    action: "@todo/remove", 
+    payload: todo
+  }
+}
