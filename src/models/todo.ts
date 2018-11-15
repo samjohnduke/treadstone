@@ -1,5 +1,5 @@
 import { Record } from "immutable";
-import { Collection, Doc } from "src/firebase/firestore";
+import { Doc, LiveCollection } from "src/firebase/firestore";
 
 export interface Todo {
   color: string;
@@ -31,7 +31,10 @@ export const TodoFactory = (doc: Doc): TodoRecord => {
   return new TodoInstance(doc.data());
 };
 
-export const TodoCollection = new Collection<TodoRecord>("/todos", TodoFactory);
+export const TodoCollection = new LiveCollection<TodoRecord>(
+  "/todos",
+  TodoFactory
+);
 
 export interface Action<T> {
   action: string;

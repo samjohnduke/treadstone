@@ -10,7 +10,7 @@ export type Factory<T> = (doc: Doc) => T;
 
 export type Doc = firebase.firestore.QueryDocumentSnapshot;
 
-export class Collection<T> {
+export class LiveCollection<T> {
   private path: string;
   private callbacks: CollectionCallbacks<T> | undefined;
   private factory: Factory<T>;
