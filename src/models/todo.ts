@@ -54,13 +54,6 @@ const reducer: Reducer<TodoState, Action<Todo>> = (state, action) => {
   return state
 }
 
-export const TodoStore = new LiveStore(
-  "/todo", 
-  {},
-  TodoFactory, 
-  reducer,
-)
-
 export interface Action<T> {
   action: string;
   payload: T;
@@ -86,3 +79,10 @@ export const Remove = (todo: Todo): Action<Todo> => {
     payload: todo
   }
 }
+
+export const TodoStore = new LiveStore(
+  "/todo", 
+  {},
+  TodoFactory, 
+  reducer,
+)
