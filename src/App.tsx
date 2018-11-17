@@ -30,7 +30,7 @@ class App extends React.Component {
           <ForgotPasswordPage path={Routes.FORGOTTEN_PASSWORD} />
           <AboutPage path={Routes.ABOUT} />
           <PricingPage path={Routes.PRICING} />
-          <CorePage path={Routes.APP} />
+          <CorePage path={`${Routes.APP}/*`} />
           <HomePage path={Routes.HOME} />
         </Router>
       </div>

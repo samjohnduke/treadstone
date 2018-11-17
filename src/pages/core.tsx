@@ -1,12 +1,16 @@
-import { Link, RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, Router } from "@reach/router";
 import * as React from "react";
-import { AUTHENTICATE, HOME } from "src/constants/routes";
+import { AppBar } from "src/components/appbar";
+import { AGENDA, AUTHENTICATE, JOURNAL, PROJECTS } from "src/constants/routes";
 import { Page } from "src/design/page";
-import { doSignOut } from "src/firebase/auth";
 import { withAuthorization } from "src/firebase/withAuthorisation";
 import { UserProps } from "src/firebase/withUser";
 
 import "src/firebase/firestore";
+import { AgendaPage } from "./app/agenda";
+import { HomePage } from "./app/home";
+import { JournalPage } from "./app/journal";
+import { ProjectsPage } from "./app/projects";
 
 type Props = UserProps & RouteComponentProps;
 
@@ -18,13 +22,14 @@ export class Core extends React.Component {
   public render() {
     return (
       <Page>
-        <div>
-          <h1>
-            <Link to={HOME}>Tread</Link>
-          </h1>
-
-          <input type="text" />
-          <a onClick={doSignOut}>Sign out</a>
+        <div style={{ width: "100%" }}>
+          <AppBar />
+          <Router>
+            <HomePage path="/" />
+            <ProjectsPage path={`${PROJECTS}/*`} />
+            <AgendaPage path={AGENDA} />
+            <JournalPage path={JOURNAL} />
+          </Router>
         </div>
       </Page>
     );

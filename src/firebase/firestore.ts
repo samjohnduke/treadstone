@@ -10,7 +10,17 @@ export type Factory<T> = (doc: Doc) => T;
 
 export type Doc = firebase.firestore.QueryDocumentSnapshot;
 
-export class LiveCollection<T> {
+export interface Ref {
+  key: string;
+}
+
+export interface ActionCreator<T, A> {
+  added: (doc: T) => A;
+  modified: (doc: T) => A;
+  removed: (doc: T) => A;
+}
+
+export class LiveCollection<T extends Ref> {
   private path: string;
   private callbacks: CollectionCallbacks<T> | undefined;
   private factory: Factory<T>;
@@ -27,15 +37,18 @@ export class LiveCollection<T> {
   }
 
   public add(doc: T) {
-    //
+    return firestore.collection(this.path).add(doc);
   }
 
   public modify(doc: T, fields: string[]) {
-    //
+    return firestore.collection(this.path).doc(doc.key);
   }
 
   public remove(doc: T) {
-    //
+    return firestore
+      .collection(this.path)
+      .doc(doc.key)
+      .delete();
   }
 
   public close() {

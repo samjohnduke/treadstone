@@ -1,22 +1,30 @@
-import { Factory, LiveCollection } from "src/firebase/firestore";
+import {
+  ActionCreator,
+  Factory,
+  LiveCollection,
+  Ref
+} from "src/firebase/firestore";
 
-export class LiveStore<T, State, Action> {
+export class LiveStore<T extends Ref, State, Act> {
   private collection: LiveCollection<T>;
   private factory: Factory<T>;
   private path: string;
   private store: State;
-  private reducer: Reducer<State, Action>;
+  private reducer: Reducer<State, Act>;
+  private actionCreator: ActionCreator<T, Act>;
 
   constructor(
     path: string,
     initialState: State,
     factory: Factory<T>,
-    reducer: Reducer<State, Action>
+    actionCreator: ActionCreator<T, Act>,
+    reducer: Reducer<State, Act>
   ) {
     this.path = path;
     this.store = initialState;
     this.factory = factory;
     this.reducer = reducer;
+    this.actionCreator = actionCreator;
 
     this.collection = new LiveCollection<T>(this.path, this.factory, {
       added: this.added,
@@ -29,7 +37,7 @@ export class LiveStore<T, State, Action> {
     this.collection.close();
   };
 
-  public dispatch = (action: Action) => {
+  public dispatch = (action: Act) => {
     this.store = this.reducer(this.store, action);
   };
 
@@ -38,7 +46,8 @@ export class LiveStore<T, State, Action> {
   };
 
   public added = (doc: T) => {
-    //
+    const action = this.actionCreator.added(doc);
+    this.dispatch(action);
   };
 
   public modified = (doc: T) => {
@@ -51,3 +60,8 @@ export class LiveStore<T, State, Action> {
 }
 
 export type Reducer<T, A> = (store: T, action: A) => T;
+
+export interface Action<T> {
+  action: string;
+  payload: T;
+}
