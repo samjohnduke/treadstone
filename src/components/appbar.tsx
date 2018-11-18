@@ -93,7 +93,7 @@ export class AppBar extends React.Component {
         <div className="inner">
           <Left>
             <h1>
-              <Link to={APP}>Tread</Link>
+              <Link to={APP}>Treadstone</Link>
             </h1>
             <ul>
               <li>
