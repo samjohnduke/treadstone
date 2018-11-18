@@ -1,15 +1,17 @@
 import { RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { AppPage } from "src/design/appPage";
+import { Project } from "src/models/project";
+import { withProject } from "src/providers/project";
 
-export class JournalPage extends React.Component<RouteComponentProps> {
+type Props = RouteComponentProps & {
+  projectId: string;
+  project?: Project;
+};
+
+class ProjectPageComponent extends React.Component<Props> {
   public render() {
-    return (
-      <AppPage>
-        <aside>
-          <h2>Project</h2>
-        </aside>
-      </AppPage>
-    );
+    return <h2>Project: {this.props.project!.name}</h2>;
   }
 }
+
+export const ProjectPage = withProject(ProjectPageComponent);

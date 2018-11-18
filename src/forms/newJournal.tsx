@@ -8,11 +8,11 @@ import { Button } from "src/design/button";
 import { firestore } from "../firebase/firebase";
 
 interface FormValues {
-  name: string;
+  title: string;
 }
 
 interface FormProps {
-  name?: string;
+  title?: string;
 }
 
 class InnerForm extends React.Component<
@@ -24,14 +24,14 @@ class InnerForm extends React.Component<
         {this.props.status ? <Alert>{this.props.status}</Alert> : null}
 
         <TextInput
-          label="Name"
+          label="Title"
           type="text"
-          name="name"
-          value={this.props.values.name}
+          name="title"
+          value={this.props.values.title}
           onChange={this.props.handleChange}
           onBlur={this.props.handleBlur}
-          errors={this.props.errors.name}
-          touched={this.props.touched.name}
+          errors={this.props.errors.title}
+          touched={this.props.touched.title}
         />
 
         <div>
@@ -47,17 +47,17 @@ class InnerForm extends React.Component<
   }
 }
 
-export const NewProjectForm = withFormik<FormProps, FormValues>({
+export const NewJournalForm = withFormik<FormProps, FormValues>({
   handleSubmit: (values, { setSubmitting, setStatus, props }) => {
     setSubmitting(true);
     firestore
       .collection("/users")
       .doc("BMRvH9myrxZdrRQd82HmlJIriJy1")
-      .collection("projects")
-      .add({ name: values.name })
+      .collection("journal")
+      .add({ title: values.title })
       .then(() => navigate("./"));
   },
-  mapPropsToValues: () => ({ name: "" }),
+  mapPropsToValues: () => ({ title: "" }),
   validate: values => {
     const err: FormProps = {};
 

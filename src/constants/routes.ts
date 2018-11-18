@@ -9,3 +9,6 @@ export const PROJECTS = "projects";
 export const TODOS = "todos";
 export const AGENDA = "agenda";
 export const JOURNAL = "journal";
+export const STOCKS = "stocks";
+export const BOOKMARKS = "bookmarks";
+export const CONTACTS = "contacts";

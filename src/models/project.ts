@@ -32,7 +32,25 @@ export const reducer: Reducer<ProjectState, Action<Project>> = (
   state,
   action
 ) => {
-  return state;
+  const nextState = { ...state };
+
+  switch (action.action) {
+    case ADD_PROJECT:
+      nextState.projects[action.payload.key] = action.payload;
+      break;
+
+    case MODIFY_PROJECT:
+      break;
+
+    case REMOVE_PROJECT:
+      delete nextState.projects[action.payload.key];
+      break;
+
+    default:
+      return state;
+  }
+
+  return nextState;
 };
 
 export const ProjectActionCreator: ActionCreator<Project, Action<Project>> = {
@@ -41,30 +59,34 @@ export const ProjectActionCreator: ActionCreator<Project, Action<Project>> = {
   removed: (doc: Project) => Remove(doc)
 };
 
+const ADD_PROJECT = "@project/add";
+const MODIFY_PROJECT = "@project/modify";
+const REMOVE_PROJECT = "@project/remove";
+
 export const Add = (todo: Project): Action<Project> => {
   return {
-    action: "@project/add",
+    action: ADD_PROJECT,
     payload: todo
   };
 };
 
 export const Modify = (todo: Project): Action<Project> => {
   return {
-    action: "@project/modify",
+    action: MODIFY_PROJECT,
     payload: todo
   };
 };
 
 export const Remove = (todo: Project): Action<Project> => {
   return {
-    action: "@project/remove",
+    action: REMOVE_PROJECT,
     payload: todo
   };
 };
 
 export const ProjectStore = new LiveStore(
   "/projects", // collection to listen on
-  {}, // initial state of todos
+  { projects: {} }, // initial state of todos
   ProjectFactory, // how to make a todo from a firebase doc
   ProjectActionCreator, // how to create update actions
   reducer // how to change the state from A => B

@@ -12,6 +12,7 @@ export class LiveStore<T extends Ref, State, Act> {
   private store: State;
   private reducer: Reducer<State, Act>;
   private actionCreator: ActionCreator<T, Act>;
+  private cb: () => void;
 
   constructor(
     path: string,
@@ -33,12 +34,18 @@ export class LiveStore<T extends Ref, State, Act> {
     });
   }
 
+  public changes = (cb: () => void) => {
+    this.cb = cb;
+    this.collection.listen();
+  };
+
   public close = () => {
     this.collection.close();
   };
 
   public dispatch = (action: Act) => {
     this.store = this.reducer(this.store, action);
+    this.cb();
   };
 
   public getState = () => {

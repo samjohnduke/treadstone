@@ -1,6 +1,14 @@
 import { Link } from "@reach/router";
 import * as React from "react";
-import { AGENDA, APP, JOURNAL, PROJECTS } from "src/constants/routes";
+import {
+  AGENDA,
+  APP,
+  BOOKMARKS,
+  CONTACTS,
+  JOURNAL,
+  PROJECTS,
+  STOCKS
+} from "src/constants/routes";
 import { doSignOut } from "src/firebase/auth";
 import styled from "src/styled";
 
@@ -39,7 +47,7 @@ const Bar = styled("div")`
 
   & button {
     height: 35px;
-    margin: 0 0 0 30px;
+    margin: 0 0 0 20px;
     padding: 10px 20px;
     color: #fff;
     background: rgba(40, 50, 60, 1);
@@ -96,6 +104,15 @@ export class AppBar extends React.Component {
               </li>
               <li>
                 <Link to={JOURNAL}>Journal</Link>
+              </li>
+              <li>
+                <Link to={BOOKMARKS}>Bookmarks</Link>
+              </li>
+              <li>
+                <Link to={STOCKS}>Stocks</Link>
+              </li>
+              <li>
+                <Link to={CONTACTS}>Contacts</Link>
               </li>
             </ul>
           </Left>

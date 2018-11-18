@@ -85,8 +85,9 @@ export const Auth = withAuthorization(user => (user ? false : true), APP)(
       setSubmitting(true);
       doSignInWithEmailAndPassword(values.email, values.password)
         .then(user => {
-          props.location.navigate("/core");
+          console.log(user);
           setSubmitting(false);
+          props.location.navigate("/core");
         })
         .catch(e => {
           switch (e.code) {
