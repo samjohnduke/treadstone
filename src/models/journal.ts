@@ -11,7 +11,7 @@ export interface IJournal {
   tags: string[];
 }
 
-export const JournalRecord = Record<IJournal>({
+export const JournalRecord = Record({
   content: "",
   createdAt: Date.now(),
   editedAt: undefined,

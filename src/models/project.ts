@@ -6,7 +6,7 @@ export interface IProject {
   name: string;
 }
 
-export const ProjectRecord = Record<IProject>({
+export const ProjectRecord = Record({
   name: ""
 });
 

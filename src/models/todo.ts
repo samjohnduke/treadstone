@@ -14,7 +14,7 @@ export interface ITodo {
   estimations: number[];
 }
 
-export const TodoRecord = Record<ITodo>({
+export const TodoRecord = Record({
   color: "white",
   completedAt: undefined,
   content: "",
