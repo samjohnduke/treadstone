@@ -8,9 +8,23 @@ import styled from "src/styled";
 
 import { isKeyHotkey } from "is-hotkey";
 
+export const TreadstoneEditor = styled("div")`
+  background: #fff;
+`;
+
+export const InnerEditor = styled(Editor)`
+  padding: 20px;
+`;
+
 export const Button = styled("span")<{ active: boolean }>`
   cursor: pointer;
   color: ${p => (p.active ? "black" : "#ccc")};
+  padding: 4px;
+  border-radius: 4px;
+
+  &:hover {
+    background: #eee;
+  }
 `;
 
 export const Icon = styled(({ className, ...rest }: any) => {
@@ -25,16 +39,14 @@ export const Menu = styled("div")`
     display: inline-block;
   }
   & > * + * {
-    margin-left: 15px;
+    margin-left: 8px;
   }
 `;
 
 export const Toolbar = styled(Menu)`
   position: relative;
-  padding: 1px 18px 17px;
-  margin: 0 -20px;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 4px solid #fffdf9;
 `;
 
 const BLOCK_TAGS = {
@@ -42,15 +54,18 @@ const BLOCK_TAGS = {
   h1: "heading-one",
   h2: "heading-two",
   h3: "heading-three",
+  li: "list-item",
+  ol: "numbered-list",
   p: "paragraph",
-  pre: "code"
+  pre: "code",
+  ul: "bulleted-list"
 };
 
 // Add a dictionary of mark tags.
 const MARK_TAGS = {
   em: "italic",
   strong: "bold",
-  u: "underline"
+  u: "underlined"
 };
 
 const rules = [
@@ -88,6 +103,12 @@ const rules = [
             return <h2>{children}</h2>;
           case "heading-three":
             return <h3>{children}</h3>;
+          case "bulleted-list":
+            return <ul>{children}</ul>;
+          case "numbered-list":
+            return <ol>{children}</ol>;
+          case "list-item":
+            return <li>{children}</li>;
         }
       }
       return undefined;
@@ -113,7 +134,7 @@ const rules = [
             return <strong>{children}</strong>;
           case "italic":
             return <em>{children}</em>;
-          case "underline":
+          case "underlined":
             return <u>{children}</u>;
         }
       }
@@ -215,7 +236,7 @@ class RichTextExample extends React.Component<{ value: string }> {
 
   public render() {
     return (
-      <div>
+      <TreadstoneEditor>
         <Toolbar>
           {this.renderMarkButton("bold", "format_bold")}
           {this.renderMarkButton("italic", "format_italic")}
@@ -223,11 +244,12 @@ class RichTextExample extends React.Component<{ value: string }> {
           {this.renderBlockButton("code", "code")}
           {this.renderBlockButton("heading-one", "looks_one")}
           {this.renderBlockButton("heading-two", "looks_two")}
+          {this.renderBlockButton("heading-three", "looks_3")}
           {this.renderBlockButton("quote", "format_quote")}
-          {/* {this.renderBlockButton("numbered-list", "format_list_numbered")}
-          {this.renderBlockButton("bulleted-list", "format_list_bulleted")} */}
+          {this.renderBlockButton("numbered-list", "format_list_numbered")}
+          {this.renderBlockButton("bulleted-list", "format_list_bulleted")}
         </Toolbar>
-        <Editor
+        <InnerEditor
           spellCheck={true}
           autoFocus={true}
           placeholder="Enter some rich text..."
@@ -238,7 +260,7 @@ class RichTextExample extends React.Component<{ value: string }> {
           renderNode={this.renderNode}
           renderMark={this.renderMark}
         />
-      </div>
+      </TreadstoneEditor>
     );
   }
 
@@ -318,6 +340,8 @@ class RichTextExample extends React.Component<{ value: string }> {
         return <h1 {...attributes}>{children}</h1>;
       case "heading-two":
         return <h2 {...attributes}>{children}</h2>;
+      case "heading-three":
+        return <h3 {...attributes}>{children}</h3>;
       case "list-item":
         return <li {...attributes}>{children}</li>;
       case "numbered-list":
