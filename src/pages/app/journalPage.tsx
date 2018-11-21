@@ -5,8 +5,6 @@ import { Journal } from "src/models/journal";
 import { withJournal } from "src/providers/journal";
 
 
-
-
 type Props = RouteComponentProps & {
   journalId: string;
   journal?: Journal;
@@ -27,7 +25,7 @@ class JournalPageComponent extends React.Component<Props> {
         </ul>
 
         <div>
-          <RichTextView value={journal.content} readOnly={true} />
+          <RichTextView key={journal.key} value={journal.content} readOnly={true} />
         </div>
       </div>
     ) : null;

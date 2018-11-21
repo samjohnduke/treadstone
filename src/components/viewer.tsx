@@ -179,6 +179,7 @@ class RichTextView extends React.Component<{ value: string, readOnly?: boolean }
    */
 
   public render() {
+    console.log()
     return (
       <TreadstoneEditor>
         <InnerEditor
