@@ -1,12 +1,13 @@
+import * as firebase from 'firebase';
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
 import { Action, LiveStore, Reducer } from "./store";
 
 export interface IJournal {
   title: string;
-  createdAt: number;
-  editedAt: number | undefined;
-  publishedAt: number | undefined;
+  createdAt: firebase.firestore.Timestamp;
+  editedAt: firebase.firestore.Timestamp | undefined;
+  publishedAt: firebase.firestore.Timestamp | undefined;
   content: string;
   tags: string[];
 }
@@ -20,13 +21,20 @@ export const JournalRecord = Record({
   title: ""
 });
 
+const monthNames = [
+  "Jan", "Feb", "Mar",
+  "Apr", "May", "Jun", "Jul",
+  "Aug", "Sep", "Oct",
+  "Nov", "Dec"
+];
+
 export class Journal extends JournalRecord implements IJournal, Ref {
   public key: string;
   public ref: firebase.firestore.DocumentReference;
   public title: string;
-  public createdAt: number;
-  public editedAt: number | undefined;
-  public publishedAt: number | undefined;
+  public createdAt: firebase.firestore.Timestamp;
+  public editedAt: firebase.firestore.Timestamp | undefined;
+  public publishedAt: firebase.firestore.Timestamp | undefined;
   public content: string;
   public tags: string[];
 
@@ -38,6 +46,11 @@ export class Journal extends JournalRecord implements IJournal, Ref {
     super(props);
     this.key = key;
     this.ref = ref;
+  }
+
+  public createdAtDate() {
+    const date = new Date(this.createdAt.seconds*1000);
+    return `${date.getDate()} ${monthNames[date.getMonth()]}, ${date.getFullYear()}` 
   }
 }
 

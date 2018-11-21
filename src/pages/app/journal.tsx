@@ -3,6 +3,7 @@ import * as React from "react";
 import { AppPage } from "src/design/appPage";
 import { Journal } from "src/models/journal";
 import { withJournalCollection } from "src/providers/journal";
+import styled from 'src/styled';
 import { JournalPage } from "./journalPage";
 import { JournalPageEdit } from "./journalPageEdit";
 import { NewJournalPage } from "./newJournal";
@@ -11,20 +12,66 @@ type Props = RouteComponentProps & {
   list: Journal[];
 };
 
+const NewBtn = styled(Link)`
+  display: inline-block;
+  color: #fff;
+  border-radius: 25px;
+  padding: 5px 25px; 
+  height: 25px;
+  font-size: 0.9em;
+  line-height: 25px;
+  background: rgba(0,0,0,0.8);
+  text-decoration: none;
+`
+
+const List = styled('ul')`
+  list-style: none;
+  margin: 0; 
+  padding: 0;
+  margin-top: 30px;
+
+  & a {
+    display: block;
+    text-decoration: none;
+  }
+`
+
+const Date = styled('div')`
+  color: #777;
+  font-size: 0.75em;
+  text-decoration: none;
+  margin-bottom: -3px;
+`
+
+const Title = styled('div')`
+  color: #000;
+  font-size: 1.3em;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'PT Serif', serif;
+`
+
 class JournalsPageComponent extends React.Component<Props> {
   public render() {
     return (
       <AppPage>
         <aside>
           <h2>Journal</h2>
-          <Link to="new">new</Link>
-          <ul>
+          <NewBtn to="new">new</NewBtn>
+          <List>
             {this.props.list.map(j => (
               <li key={j.key}>
-                <Link to={j.key}>{j.title}</Link>
+                <Link to={j.key}> 
+                  <Date>
+                    {j.createdAtDate()}
+                  </Date>
+                  <Title>
+                    {j.title} 
+                  </Title>
+                </Link>        
               </li>
             ))}
-          </ul>
+          </List>
         </aside>
         <div>
           <Router>

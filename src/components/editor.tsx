@@ -170,7 +170,7 @@ const isCodeHotkey = isKeyHotkey("mod+`");
  * @type {Component}
  */
 
-class RichTextExample extends React.Component<{ value: string }> {
+class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
   /**
    * Deserialize the initial editor value.
    *
@@ -259,6 +259,7 @@ class RichTextExample extends React.Component<{ value: string }> {
           onKeyDown={this.onKeyDown}
           renderNode={this.renderNode}
           renderMark={this.renderMark}
+          readOnly={this.props.readOnly}
         />
       </TreadstoneEditor>
     );
@@ -494,4 +495,4 @@ class RichTextExample extends React.Component<{ value: string }> {
  * Export.
  */
 
-export default RichTextExample;
+export default RichText;
