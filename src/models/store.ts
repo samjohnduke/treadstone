@@ -58,11 +58,13 @@ export class LiveStore<T extends Ref, State, Act> {
   };
 
   public modified = (doc: T) => {
-    //
+    const action = this.actionCreator.modified(doc);
+    this.dispatch(action);
   };
 
   public removed = (doc: T) => {
-    //
+    const action = this.actionCreator.removed(doc);
+    this.dispatch(action);
   };
 }
 

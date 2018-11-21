@@ -164,13 +164,19 @@ const isItalicHotkey = isKeyHotkey("mod+i");
 const isUnderlinedHotkey = isKeyHotkey("mod+u");
 const isCodeHotkey = isKeyHotkey("mod+`");
 
+interface Props {
+  value: string;
+  readOnly?: boolean;
+  onChange?(value: string): void;
+}
+
 /**
  * The rich text example.
  *
  * @type {Component}
  */
 
-class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
+class RichText extends React.Component<Props> {
   /**
    * Deserialize the initial editor value.
    *
@@ -178,6 +184,7 @@ class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
    */
 
   public state = {
+    serial: "",
     value: html.deserialize("<p></p>")
   };
 
@@ -186,6 +193,7 @@ class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
   constructor(props: { value: string }) {
     super(props);
     this.state = {
+      serial: props.value,
       value: html.deserialize(props.value)
     };
   }
@@ -228,6 +236,13 @@ class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
     this.editor = editor as any;
   };
 
+  public shouldComponentUpdate(nextProps: { value: string }) {
+    if (nextProps.value === this.state.serial) {
+      return false;
+    }
+    return true;
+  }
+
   /**
    * Render.
    *
@@ -235,6 +250,7 @@ class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
    */
 
   public render() {
+    console.log(this.props.value);
     return (
       <TreadstoneEditor>
         <Toolbar>
@@ -251,9 +267,12 @@ class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
         </Toolbar>
         <InnerEditor
           spellCheck={true}
-          autoFocus={true}
           placeholder="Enter some rich text..."
           ref={this.ref}
+          onBlur={() => {
+            console.log(this);
+          }}
+          autoFocus={false}
           value={this.state.value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
@@ -391,10 +410,11 @@ class RichText extends React.Component<{ value: string, readOnly?: boolean }> {
   private onChange = ({ value }: any) => {
     if (value.document !== this.state.value.document) {
       const str = html.serialize(value);
-      localStorage.setItem("content", str);
+      if (this.props.onChange) {
+        this.props.onChange(str);
+      }
+      this.setState({ serial: str, value });
     }
-
-    this.setState({ value });
   };
 
   /**

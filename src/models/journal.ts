@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebase from "firebase";
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
 import { Action, LiveStore, Reducer } from "./store";
@@ -22,10 +22,18 @@ export const JournalRecord = Record({
 });
 
 const monthNames = [
-  "Jan", "Feb", "Mar",
-  "Apr", "May", "Jun", "Jul",
-  "Aug", "Sep", "Oct",
-  "Nov", "Dec"
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
 ];
 
 export class Journal extends JournalRecord implements IJournal, Ref {
@@ -49,8 +57,10 @@ export class Journal extends JournalRecord implements IJournal, Ref {
   }
 
   public createdAtDate() {
-    const date = new Date(this.createdAt.seconds*1000);
-    return `${date.getDate()} ${monthNames[date.getMonth()]}, ${date.getFullYear()}` 
+    const date = new Date(this.createdAt.seconds * 1000);
+    return `${date.getDate()} ${
+      monthNames[date.getMonth()]
+    }, ${date.getFullYear()}`;
   }
 }
 
@@ -74,6 +84,7 @@ export const reducer: Reducer<JournalState, Action<Journal>> = (
       break;
 
     case MODIFY_JOURNAL:
+      nextState.journals[action.payload.key] = action.payload;
       break;
 
     case REMOVE_JOURNAL:

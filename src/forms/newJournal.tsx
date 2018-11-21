@@ -2,6 +2,9 @@ import { navigate } from "@reach/router";
 import { InjectedFormikProps, withFormik } from "formik";
 import * as React from "react";
 
+import * as firebase from "firebase";
+
+import RichText from "src/components/editor";
 import { TextInput } from "src/components/textInput";
 import { Alert } from "src/design/alert";
 import { Button } from "src/design/button";
@@ -9,10 +12,14 @@ import { firestore } from "../firebase/firebase";
 
 interface FormValues {
   title: string;
+  tags: string;
+  content: string;
 }
 
 interface FormProps {
   title?: string;
+  tags?: string;
+  content?: string;
 }
 
 class InnerForm extends React.Component<
@@ -34,6 +41,24 @@ class InnerForm extends React.Component<
           touched={this.props.touched.title}
         />
 
+        <TextInput
+          label="Tags"
+          name="tags"
+          type="text"
+          value={this.props.values.tags}
+          onChange={this.props.handleChange}
+          onBlur={this.props.handleBlur}
+          errors={this.props.errors.tags}
+          touched={this.props.touched.tags}
+        />
+
+        <div style={{ padding: "0 0 20px", width: "100%" }}>
+          <RichText
+            onChange={this.props.handleChange}
+            value={this.props.values.content}
+          />
+        </div>
+
         <div>
           <Button
             type="submit"
@@ -54,10 +79,15 @@ export const NewJournalForm = withFormik<FormProps, FormValues>({
       .collection("/users")
       .doc("BMRvH9myrxZdrRQd82HmlJIriJy1")
       .collection("journal")
-      .add({ title: values.title })
-      .then(() => navigate("./"));
+      .add({
+        content: values.content,
+        createdAt: firebase.firestore.Timestamp.now(),
+        tags: values.tags.split(",").map(t => t.trim()),
+        title: values.title
+      })
+      .then(a => navigate(`./${a.id}/edit`));
   },
-  mapPropsToValues: () => ({ title: "" }),
+  mapPropsToValues: () => ({ title: "", content: "", tags: "" }),
   validate: values => {
     const err: FormProps = {};
 
