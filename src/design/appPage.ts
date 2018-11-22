@@ -2,7 +2,7 @@ import styled from "src/styled";
 
 export const AppPage = styled.div`
   display: flex;
-  width: 1000px;
+  max-width: 1000px;
   margin: auto;
   text-align: left;
 
@@ -11,8 +11,9 @@ export const AppPage = styled.div`
   }
 
   & > div {
-    flex: 1 0 800px;
-    width: 800px;
+    flex: 1;
+    max-width: 800px;
     display: block;
+    padding-left: 20px;
   }
 `;

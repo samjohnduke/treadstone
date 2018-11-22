@@ -8,12 +8,13 @@ import styled from "src/styled";
 
 import { isKeyHotkey } from "is-hotkey";
 
-export const TreadstoneEditor = styled("div")`
-  background: #fff;
-`;
+export const TreadstoneEditor = styled("div")``;
 
 export const InnerEditor = styled(Editor)`
+  margin-top: 10px;
   padding: 20px;
+  background: #fff;
+  box-shadow: 3px 3px 15px -2px rgba(0, 0, 0, 0.1);
 `;
 
 export const Button = styled("span")<{ active: boolean }>`
@@ -44,9 +45,12 @@ export const Menu = styled("div")`
 `;
 
 export const Toolbar = styled(Menu)`
-  position: relative;
+  position: sticky;
+  top: 0;
   padding: 10px;
-  border-bottom: 4px solid #fffdf9;
+  box-shadow: 3px 3px 15px -2px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  z-index: 100;
 `;
 
 const BLOCK_TAGS = {
@@ -250,7 +254,6 @@ class RichText extends React.Component<Props> {
    */
 
   public render() {
-    console.log(this.props.value);
     return (
       <TreadstoneEditor>
         <Toolbar>
@@ -269,9 +272,6 @@ class RichText extends React.Component<Props> {
           spellCheck={true}
           placeholder="Enter some rich text..."
           ref={this.ref}
-          onBlur={() => {
-            console.log(this);
-          }}
           autoFocus={false}
           value={this.state.value}
           onChange={this.onChange}

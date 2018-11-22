@@ -20,7 +20,7 @@ const Bar = styled("div")`
   box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.2);
 
   & .inner {
-    width: 1000px;
+    max-width: 1000px;
     height: 60px;
     margin: auto;
     display: flex;

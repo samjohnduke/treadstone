@@ -54,7 +54,7 @@ class InnerForm extends React.Component<
 
         <div style={{ padding: "0 0 20px", width: "100%" }}>
           <RichText
-            onChange={this.props.handleChange}
+            onChange={v => this.props.setFieldValue("content", v)}
             value={this.props.values.content}
           />
         </div>

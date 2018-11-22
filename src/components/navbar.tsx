@@ -1,20 +1,20 @@
-import { Link } from '@reach/router';
-import * as React from 'react';
-import * as Routes from 'src/constants/routes'; 
-import { doSignOut } from 'src/firebase/auth';
-import { withUser } from 'src/firebase/withUser';
-import styled from 'src/styled';
+import { Link } from "@reach/router";
+import * as React from "react";
+import * as Routes from "src/constants/routes";
+import { doSignOut } from "src/firebase/auth";
+import { withUser } from "src/firebase/withUser";
+import styled from "src/styled";
 
 const Nav = styled.div`
-  width: 1000px;
+  max-width: 1000px;
   margin: auto;
   display: flex;
-  
+
   h1 {
     font-size: 1.6em;
     margin: 0;
     padding: 1em 0;
-  }  
+  }
 
   ul {
     display: flex;
@@ -43,41 +43,50 @@ const Nav = styled.div`
     white-space: nowrap;
     cursor: pointer;
   }
-`
+`;
 
 const NavSec = styled.div`
   flex: 1;
   display: flex;
-`
+`;
 
-
-export class NavbarUser extends React.Component<{user?: firebase.User}> {
+export class NavbarUser extends React.Component<{ user?: firebase.User }> {
   public render() {
-    return(
+    return (
       <Nav>
-        <NavSec><h1><Link to={Routes.HOME} >Treadstone</Link></h1></NavSec>
+        <NavSec>
+          <h1>
+            <Link to={Routes.HOME}>Treadstone</Link>
+          </h1>
+        </NavSec>
         <NavSec>
           <ul>
-            <li><Link to={Routes.ABOUT}>About</Link></li>
-            <li><Link to={Routes.PRICING}>Pricing</Link></li>
-            
-            { this.props.user ? (
+            <li>
+              <Link to={Routes.ABOUT}>About</Link>
+            </li>
+            <li>
+              <Link to={Routes.PRICING}>Pricing</Link>
+            </li>
+
+            {this.props.user ? (
               <>
                 <li>
                   <Link to={Routes.APP}>App</Link>
-                </li> 
+                </li>
                 <li>
                   <a onClick={doSignOut}>Sign out</a>
-                </li> 
+                </li>
               </>
             ) : (
-              <li><Link to={Routes.AUTHENTICATE}>Login</Link></li>
+              <li>
+                <Link to={Routes.AUTHENTICATE}>Login</Link>
+              </li>
             )}
           </ul>
         </NavSec>
       </Nav>
-    )
+    );
   }
 }
 
-export const Navbar = withUser(NavbarUser)
+export const Navbar = withUser(NavbarUser);
