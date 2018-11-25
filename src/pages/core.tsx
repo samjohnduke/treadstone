@@ -5,6 +5,7 @@ import * as routes from "src/constants/routes";
 import { Page } from "src/design/page";
 import { withAuthorization } from "src/firebase/withAuthorisation";
 import { UserProps } from "src/firebase/withUser";
+import { FeedProvider } from "src/providers/feed";
 import { JournalProvider } from "src/providers/journal";
 import { ProjectProvider } from "src/providers/project";
 
@@ -28,20 +29,22 @@ export class Core extends React.Component {
     return (
       <Page>
         <ProjectProvider>
-          <JournalProvider>
-            <div style={{ width: "100%" }}>
-              <AppBar />
-              <Router>
-                <HomePage path="/" />
-                <ProjectsPage path={`${routes.PROJECTS}/*`} />
-                <AgendaPage path={routes.AGENDA} />
-                <JournalsPage list={[]} path={`${routes.JOURNAL}/*`} />
-                <StocksPage path={routes.STOCKS} />
-                <BookmarksPage path={routes.BOOKMARKS} />
-                <ContacsPage path={routes.CONTACTS} />
-              </Router>
-            </div>
-          </JournalProvider>
+          <FeedProvider>
+            <JournalProvider>
+              <div style={{ width: "100%" }}>
+                <AppBar />
+                <Router>
+                  <HomePage path="/" />
+                  <ProjectsPage path={`${routes.PROJECTS}/*`} />
+                  <AgendaPage path={routes.AGENDA} />
+                  <JournalsPage list={[]} path={`${routes.JOURNAL}/*`} />
+                  <StocksPage path={routes.STOCKS} />
+                  <BookmarksPage path={routes.BOOKMARKS} />
+                  <ContacsPage path={routes.CONTACTS} />
+                </Router>
+              </div>
+            </JournalProvider>
+          </FeedProvider>
         </ProjectProvider>
       </Page>
     );

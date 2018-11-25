@@ -10,7 +10,12 @@ type Props = RouteComponentProps & {
 
 class ProjectPageComponent extends React.Component<Props> {
   public render() {
-    return <h2>Project: {this.props.project!.name}</h2>;
+    const { project } = this.props;
+    return project ? (
+      <div>
+        <h2>{project.name}</h2>
+      </div>
+    ) : null;
   }
 }
 

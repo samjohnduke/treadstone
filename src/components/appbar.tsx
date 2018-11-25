@@ -3,11 +3,12 @@ import * as React from "react";
 import {
   AGENDA,
   APP,
-  BOOKMARKS,
-  CONTACTS,
+  // BOOKMARKS,
+  // CONTACTS,
+  FEEDS,
   JOURNAL,
-  PROJECTS,
-  STOCKS
+  PROJECTS
+  // STOCKS,
 } from "src/constants/routes";
 import { doSignOut } from "src/firebase/auth";
 import styled from "src/styled";
@@ -106,6 +107,9 @@ export class AppBar extends React.Component {
                 <Link to={JOURNAL}>Journal</Link>
               </li>
               <li>
+                <Link to={FEEDS}>Reader</Link>
+              </li>
+              {/* <li>
                 <Link to={BOOKMARKS}>Bookmarks</Link>
               </li>
               <li>
@@ -113,7 +117,7 @@ export class AppBar extends React.Component {
               </li>
               <li>
                 <Link to={CONTACTS}>Contacts</Link>
-              </li>
+              </li> */}
             </ul>
           </Left>
 

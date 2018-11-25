@@ -12,3 +12,4 @@ export const JOURNAL = "journal";
 export const STOCKS = "stocks";
 export const BOOKMARKS = "bookmarks";
 export const CONTACTS = "contacts";
+export const FEEDS = "feeds";

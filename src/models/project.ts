@@ -4,24 +4,39 @@ import { Action, LiveStore, Reducer } from "./store";
 
 export interface IProject {
   name: string;
+  tags: string[];
+  description: string;
+  todos: any[];
 }
 
 export const ProjectRecord = Record({
-  name: ""
+  description: "",
+  name: "",
+  tags: [],
+  todos: []
 });
 
 export class Project extends ProjectRecord implements IProject, Ref {
-  public name: string;
   public key: string;
+  public ref: firebase.firestore.DocumentReference;
+  public name: string;
+  public tags: string[];
+  public description: string;
+  public todos: any[];
 
-  constructor(key: string, props: IProject) {
+  constructor(
+    key: string,
+    ref: firebase.firestore.DocumentReference,
+    props: IProject
+  ) {
     super(props);
     this.key = key;
+    this.ref = ref;
   }
 }
 
 export const ProjectFactory = (doc: Doc): Project => {
-  return new Project(doc.id, doc.data() as IProject);
+  return new Project(doc.id, doc.ref, doc.data() as IProject);
 };
 
 export interface ProjectState {
