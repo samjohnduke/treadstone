@@ -16,6 +16,7 @@ import { ContacsPage } from "./app/contacts";
 import { HomePage } from "./app/home";
 import { JournalsPage } from "./app/journal";
 import { ProjectsPage } from "./app/projects";
+import { ReaderPage } from "./app/reader";
 import { StocksPage } from "./app/stocks";
 
 type Props = UserProps & RouteComponentProps;
@@ -41,6 +42,7 @@ export class Core extends React.Component {
                   <StocksPage path={routes.STOCKS} />
                   <BookmarksPage path={routes.BOOKMARKS} />
                   <ContacsPage path={routes.CONTACTS} />
+                  <ReaderPage path={`${routes.FEEDS}/*`} />
                 </Router>
               </div>
             </JournalProvider>

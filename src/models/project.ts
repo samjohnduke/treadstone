@@ -1,19 +1,24 @@
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
 import { Action, LiveStore, Reducer } from "./store";
+import { Task, TaskFactory } from "./task";
 
 export interface IProject {
   name: string;
   tags: string[];
   description: string;
-  todos: any[];
+  tasks: Task[] | Array<Promise<Task>>;
+  hasCode: boolean;
+  codeURL: string;
 }
 
 export const ProjectRecord = Record({
+  codeURL: "",
   description: "",
+  hasCode: false,
   name: "",
   tags: [],
-  todos: []
+  tasks: []
 });
 
 export class Project extends ProjectRecord implements IProject, Ref {
@@ -22,7 +27,9 @@ export class Project extends ProjectRecord implements IProject, Ref {
   public name: string;
   public tags: string[];
   public description: string;
-  public todos: any[];
+  public tasks: Task[] | Array<Promise<Task>>;
+  public codeURL: string;
+  public hasCode: boolean;
 
   constructor(
     key: string,
@@ -36,7 +43,13 @@ export class Project extends ProjectRecord implements IProject, Ref {
 }
 
 export const ProjectFactory = (doc: Doc): Project => {
-  return new Project(doc.id, doc.ref, doc.data() as IProject);
+  const p = doc.data();
+  if (p.tasks) {
+    p.tasks = p.tasks.map((t: firebase.firestore.DocumentReference) => {
+      return TaskFactory.fromRef(t);
+    });
+  }
+  return new Project(doc.id, doc.ref, p as IProject);
 };
 
 export interface ProjectState {

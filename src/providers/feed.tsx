@@ -79,8 +79,8 @@ export function withFeedCollection<T extends FeedListProps>(
 }
 
 interface FeedProps {
-  journalId: string;
-  journal?: Feed;
+  feedId: string;
+  feed?: Feed;
 }
 
 export function withFeed<T extends FeedProps>(
@@ -90,7 +90,7 @@ export function withFeed<T extends FeedProps>(
     return (
       <FeedContext.Consumer>
         {store => {
-          return <Component {...props} journal={store.map[props.journalId]} />;
+          return <Component {...props} feed={store.map[props.feedId]} />;
         }}
       </FeedContext.Consumer>
     );

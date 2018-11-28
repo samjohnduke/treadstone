@@ -9,10 +9,12 @@ export interface IFeed {
   url: string;
   tags: string[];
   path: string;
+  itemCount: number;
 }
 
 export const FeedRecord = Record({
   createdAt: Date.now(),
+  itemCount: 0,
   name: "",
   tags: [],
   url: ""
@@ -41,6 +43,7 @@ export class Feed extends FeedRecord implements IFeed, Ref {
   public url: string;
   public tags: string[];
   public path: string;
+  public itemCount: number;
 
   constructor(
     key: string,

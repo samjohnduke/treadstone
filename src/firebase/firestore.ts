@@ -11,7 +11,7 @@ export type Factory<T> = (doc: Doc) => T;
 export type Doc = firebase.firestore.QueryDocumentSnapshot;
 
 export interface Ref {
-  key: string;
+  key?: string;
 }
 
 export interface ActionCreator<T, A> {
