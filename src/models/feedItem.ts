@@ -1,7 +1,7 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "./store";
+import { Action,  Reducer } from "./store";
 
 export interface IFeedItem {
   name: string;
@@ -60,9 +60,11 @@ export class FeedItem extends FeedItemRecord implements IFeedItem, Ref {
   }
 }
 
-export const FeedItemFactory = (doc: Doc): FeedItem => {
-  return new FeedItem(doc.id, doc.ref, doc.data() as IFeedItem);
-};
+export const FeedItemFactory = {
+  fromFirebase: (doc: Doc): FeedItem => {
+    return new FeedItem(doc.id, doc.ref, doc.data() as IFeedItem);
+  }
+}
 
 export interface FeedItemState {
   feedItems: { [key: string]: FeedItem };
@@ -128,10 +130,10 @@ export const Remove = (todo: FeedItem): Action<FeedItem> => {
   };
 };
 
-export const FeedItemStore = new LiveStore(
-  "/feedItems", // collection to listen on
-  { feedItems: {} }, // initial state of todos
-  FeedItemFactory, // how to make a todo from a firebase doc
-  FeedItemActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+// export const FeedItemStore = new LiveStore(
+//   "/feedItems", // collection to listen on
+//   { feedItems: {} }, // initial state of todos
+//   FeedItemFactory, // how to make a todo from a firebase doc
+//   FeedItemActionCreator, // how to create update actions
+//   reducer // how to change the state from A => B
+// );

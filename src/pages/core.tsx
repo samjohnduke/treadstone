@@ -37,7 +37,7 @@ export class Core extends React.Component {
                 <Router>
                   <HomePage path="/" />
                   <ProjectsPage path={`${routes.PROJECTS}/*`} />
-                  <AgendaPage path={routes.AGENDA} />
+                  <AgendaPage path={`${routes.AGENDA}/*`} />
                   <JournalsPage list={[]} path={`${routes.JOURNAL}/*`} />
                   <StocksPage path={routes.STOCKS} />
                   <BookmarksPage path={routes.BOOKMARKS} />

@@ -46,22 +46,24 @@ export class Project extends ProjectRecord implements IProject, Ref {
   }
 }
 
-export const ProjectFactory = (doc: Doc): Project => {
-  const p = doc.data();
-  if (p.tasks) {
-    p.tasks = p.tasks.map((t: firebase.firestore.DocumentReference) => {
-      return TaskFactory.fromRef(t);
-    });
-  }
+export const ProjectFactory = {
+  fromFirebase: (doc: Doc): Project => {
+    const p = doc.data();
+    if (p.tasks) {
+      p.tasks = p.tasks.map((t: firebase.firestore.DocumentReference) => {
+        return TaskFactory.fromRef(t);
+      });
+    }
 
-  if (p.files) {
-    p.files = p.files.map((t: firebase.firestore.DocumentReference) => {
-      return FileFactory.fromRef(t);
-    });
-  }
+    if (p.files) {
+      p.files = p.files.map((t: firebase.firestore.DocumentReference) => {
+        return FileFactory.fromRef(t);
+      });
+    }
 
-  return new Project(doc.id, doc.ref, p as IProject);
-};
+    return new Project(doc.id, doc.ref, p as IProject);
+  }
+}
 
 export interface ProjectState {
   projects: { [key: string]: Project };
@@ -71,7 +73,7 @@ export const reducer: Reducer<ProjectState, Action<Project>> = (
   state,
   action
 ) => {
-  const nextState = { ...state };
+  const nextState = { ...state, projects: { ...state.projects } };
 
   switch (action.action) {
     case ADD_PROJECT:
@@ -79,6 +81,7 @@ export const reducer: Reducer<ProjectState, Action<Project>> = (
       break;
 
     case MODIFY_PROJECT:
+      nextState.projects[action.payload.key] = action.payload;
       break;
 
     case REMOVE_PROJECT:

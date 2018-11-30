@@ -1,6 +1,8 @@
 import { firestore } from "firebase";
 import { Record } from "immutable";
-import { Doc, Ref } from "src/firebase/firestore";
+import { ActionCreator, Doc, Ref, } from "src/firebase/firestore";
+import { Action, LiveStore, Reducer,  } from './store';
+
 
 export interface ITask {
   name: string;
@@ -61,3 +63,75 @@ export const TaskFactory = {
     return task;
   }
 };
+
+
+
+
+export interface TaskState {
+  tasks: { [key: string]: Task };
+}
+
+export const reducer: Reducer<TaskState, Action<Task>> = (
+  state,
+  action
+) => {
+  const nextState = { ...state, tasks: {...state.tasks} };
+
+  switch (action.action) {
+    case ADD_TASK:
+      nextState.tasks[action.payload.key!] = action.payload;
+      break;
+
+    case MODIFY_TASK:
+      nextState.tasks[action.payload.key!] = action.payload;
+      break;
+
+    case REMOVE_TASK:
+      delete nextState.tasks[action.payload.key!];
+      break;
+
+    default:
+      return state;
+  }
+
+  return nextState;
+};
+
+export const TaskActionCreator: ActionCreator<Task, Action<Task>> = {
+  added: (doc: Task) => Add(doc),
+  modified: (doc: Task) => Modify(doc),
+  removed: (doc: Task) => Remove(doc)
+};
+
+const ADD_TASK = "@task/add";
+const MODIFY_TASK = "@task/modify";
+const REMOVE_TASK = "@task/remove";
+
+export const Add = (todo: Task): Action<Task> => {
+  return {
+    action: ADD_TASK,
+    payload: todo
+  };
+};
+
+export const Modify = (todo: Task): Action<Task> => {
+  return {
+    action: MODIFY_TASK,
+    payload: todo
+  };
+};
+
+export const Remove = (todo: Task): Action<Task> => {
+  return {
+    action: REMOVE_TASK,
+    payload: todo
+  };
+};
+
+export const TaskStore = new LiveStore(
+  "/tasks", // collection to listen on
+  { tasks: {} }, // initial state of todos
+  TaskFactory, // how to make a todo from a firebase doc
+  TaskActionCreator, // how to create update actions
+  reducer // how to change the state from A => B
+);

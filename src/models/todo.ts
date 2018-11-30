@@ -43,9 +43,11 @@ export class Todo extends TodoRecord implements ITodo, Ref {
   }
 }
 
-export const TodoFactory = (doc: Doc): Todo => {
-  return new Todo(doc.data() as ITodo);
-};
+export const TodoFactory = {
+  fromFirebase: (doc: Doc): Todo => {
+    return new Todo(doc.data() as ITodo);
+  }
+} 
 
 export const TodoActionCreator: ActionCreator<Todo, Action<Todo>> = {
   added: (doc: Todo) => Add(doc),

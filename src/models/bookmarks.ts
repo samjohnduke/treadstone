@@ -60,9 +60,11 @@ export class Bookmark extends BookmarkRecord implements IBookmark, Ref {
   }
 }
 
-export const BookFactory = (doc: Doc): Bookmark => {
-  return new Bookmark(doc.id, doc.ref, doc.data() as IBookmark);
-};
+export const BookFactory = { 
+  fromFirebase: (doc: Doc): Bookmark => {
+    return new Bookmark(doc.id, doc.ref, doc.data() as IBookmark);
+  }
+}
 
 export interface BookmarkState {
   bookmarks: { [key: string]: Bookmark };

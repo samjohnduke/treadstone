@@ -5,9 +5,9 @@ import {
   Ref
 } from "src/firebase/firestore";
 
-export class LiveStore<T extends Ref, State, Act> {
-  private collection: LiveCollection<T>;
-  private factory: Factory<T>;
+export class LiveStore<T extends Ref, State, Act, Inter> {
+  private collection: LiveCollection<T, Inter>;
+  private factory: Factory<T, Inter>;
   private path: string;
   private store: State;
   private reducer: Reducer<State, Act>;
@@ -17,7 +17,7 @@ export class LiveStore<T extends Ref, State, Act> {
   constructor(
     path: string,
     initialState: State,
-    factory: Factory<T>,
+    factory: Factory<T, Inter>,
     actionCreator: ActionCreator<T, Act>,
     reducer: Reducer<State, Act>
   ) {
@@ -27,7 +27,7 @@ export class LiveStore<T extends Ref, State, Act> {
     this.reducer = reducer;
     this.actionCreator = actionCreator;
 
-    this.collection = new LiveCollection<T>(this.path, this.factory, {
+    this.collection = new LiveCollection<T, Inter>(this.path, this.factory, {
       added: this.added,
       modified: this.modified,
       removed: this.removed

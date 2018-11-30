@@ -63,9 +63,11 @@ export class Feed extends FeedRecord implements IFeed, Ref {
   }
 }
 
-export const FeedFactory = (doc: Doc): Feed => {
-  return new Feed(doc.id, doc.ref, doc.data() as IFeed);
-};
+export const FeedFactory = {
+  fromFirebase: (doc: Doc): Feed => {
+    return new Feed(doc.id, doc.ref, doc.data() as IFeed);
+  }
+}
 
 export interface FeedState {
   feeds: { [key: string]: Feed };

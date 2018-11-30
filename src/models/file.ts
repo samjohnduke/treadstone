@@ -38,7 +38,7 @@ export const FileFactory = {
     return new File(data.id, data.ref, data.data() as IFile);
   },
   newFromJS: async (doc: IFile): Promise<File> => {
-    const task = new File(undefined, undefined, doc);
-    return task;
+    const file = new File(undefined, undefined, doc);
+    return file;
   }
 };

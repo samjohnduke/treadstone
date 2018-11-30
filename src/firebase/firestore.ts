@@ -6,7 +6,11 @@ export interface CollectionCallbacks<T> {
   removed?(doc: T): void;
 }
 
-export type Factory<T> = (doc: Doc) => T;
+export interface Factory<T, Inter> { 
+  fromFirebase?(doc: Doc): T;
+  newFromJS?(doc: Inter): Promise<T>;
+  fromRef?(doc: firebase.firestore.DocumentReference): Promise<T>
+}
 
 export type Doc = firebase.firestore.QueryDocumentSnapshot;
 
@@ -20,15 +24,15 @@ export interface ActionCreator<T, A> {
   removed: (doc: T) => A;
 }
 
-export class LiveCollection<T extends Ref> {
+export class LiveCollection<T extends Ref, Inter> {
   private path: string;
   private callbacks: CollectionCallbacks<T> | undefined;
-  private factory: Factory<T>;
+  private factory: Factory<T, Inter>;
   private subscription: () => void;
 
   constructor(
     path: string,
-    factory: Factory<T>,
+    factory: Factory<T, Inter>,
     callbacks?: CollectionCallbacks<T>
   ) {
     this.path = path;
@@ -72,7 +76,7 @@ export class LiveCollection<T extends Ref> {
             removed = this.callbacks.removed;
           }
 
-          const doc = this.factory(change.doc);
+          const doc = this.factory.fromFirebase!(change.doc);
 
           switch (change.type) {
             case "added":

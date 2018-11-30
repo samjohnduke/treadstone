@@ -64,9 +64,11 @@ export class Journal extends JournalRecord implements IJournal, Ref {
   }
 }
 
-export const JournalFactory = (doc: Doc): Journal => {
-  return new Journal(doc.id, doc.ref, doc.data() as IJournal);
-};
+export const JournalFactory = {
+  fromFirebase: (doc: Doc): Journal => {
+    return new Journal(doc.id, doc.ref, doc.data() as IJournal);
+  }
+}
 
 export interface JournalState {
   journals: { [key: string]: Journal };
