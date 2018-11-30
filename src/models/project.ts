@@ -1,5 +1,6 @@
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
+import { File, FileFactory } from "./file";
 import { Action, LiveStore, Reducer } from "./store";
 import { Task, TaskFactory } from "./task";
 
@@ -10,11 +11,13 @@ export interface IProject {
   tasks: Task[] | Array<Promise<Task>>;
   hasCode: boolean;
   codeURL: string;
+  files: File[] | Array<Promise<File>>;
 }
 
 export const ProjectRecord = Record({
   codeURL: "",
   description: "",
+  files: [],
   hasCode: false,
   name: "",
   tags: [],
@@ -30,6 +33,7 @@ export class Project extends ProjectRecord implements IProject, Ref {
   public tasks: Task[] | Array<Promise<Task>>;
   public codeURL: string;
   public hasCode: boolean;
+  public files: File[] | Array<Promise<File>>;
 
   constructor(
     key: string,
@@ -49,6 +53,13 @@ export const ProjectFactory = (doc: Doc): Project => {
       return TaskFactory.fromRef(t);
     });
   }
+
+  if (p.files) {
+    p.files = p.files.map((t: firebase.firestore.DocumentReference) => {
+      return FileFactory.fromRef(t);
+    });
+  }
+
   return new Project(doc.id, doc.ref, p as IProject);
 };
 

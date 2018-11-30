@@ -1,5 +1,6 @@
 import { RouteComponentProps } from "@reach/router";
 import * as React from "react";
+import { FileList } from "src/collections/filesList";
 import { TaskList } from "src/collections/taskList";
 import { Project } from "src/models/project";
 import { withProject } from "src/providers/project";
@@ -25,6 +26,7 @@ class ProjectPageComponent extends React.Component<Props> {
         </div>
         <div>
           <h3>Files</h3>
+          <div>{project.files ? <FileList files={project.files} /> : null}</div>
         </div>
         <div>
           <h3>Documentation</h3>
