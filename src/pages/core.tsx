@@ -1,6 +1,7 @@
 import { RouteComponentProps, Router } from "@reach/router";
 import * as React from "react";
 import { AppBar } from "src/components/appbar";
+import { Sidebar } from "src/components/sidebar";
 import * as routes from "src/constants/routes";
 import { Page } from "src/design/page";
 import { withAuthorization } from "src/firebase/withAuthorisation";
@@ -34,6 +35,7 @@ export class Core extends React.Component {
             <JournalProvider>
               <div style={{ width: "100%" }}>
                 <AppBar />
+                <Sidebar />
                 <Router>
                   <HomePage path="/" />
                   <ProjectsPage path={`${routes.PROJECTS}/*`} />

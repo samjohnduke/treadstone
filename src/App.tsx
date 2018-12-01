@@ -15,6 +15,8 @@ import { withAuthentication } from "./firebase/withAuthentication";
 import { ForgotPasswordPage } from "./pages/forgotPassword";
 
 import "src/models/todo";
+import { ThemeProvider } from "./styled";
+import { DefaultTheme } from "./theme";
 
 class App extends React.Component {
   constructor(props: {}) {
@@ -24,15 +26,17 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <Router>
-          <AuthPage path={Routes.AUTHENTICATE} />
-          <RegisterPage path={Routes.REGISTER} />
-          <ForgotPasswordPage path={Routes.FORGOTTEN_PASSWORD} />
-          <AboutPage path={Routes.ABOUT} />
-          <PricingPage path={Routes.PRICING} />
-          <CorePage path={`${Routes.APP}/*`} />
-          <HomePage path={Routes.HOME} />
-        </Router>
+        <ThemeProvider theme={DefaultTheme}>
+          <Router>
+            <AuthPage path={Routes.AUTHENTICATE} />
+            <RegisterPage path={Routes.REGISTER} />
+            <ForgotPasswordPage path={Routes.FORGOTTEN_PASSWORD} />
+            <AboutPage path={Routes.ABOUT} />
+            <PricingPage path={Routes.PRICING} />
+            <CorePage path={`${Routes.APP}/*`} />
+            <HomePage path={Routes.HOME} />
+          </Router>
+        </ThemeProvider>
       </div>
     );
   }

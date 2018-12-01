@@ -1,15 +1,6 @@
 import { Link } from "@reach/router";
 import * as React from "react";
-import {
-  AGENDA,
-  APP,
-  // BOOKMARKS,
-  // CONTACTS,
-  FEEDS,
-  JOURNAL,
-  PROJECTS
-  // STOCKS,
-} from "src/constants/routes";
+import { APP } from "src/constants/routes";
 import { doSignOut } from "src/firebase/auth";
 import styled from "src/styled";
 
@@ -21,7 +12,7 @@ const Bar = styled("div")`
   box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.2);
 
   & .inner {
-    max-width: 1000px;
+    padding: 0 20px;
     height: 60px;
     margin: auto;
     display: flex;
@@ -44,17 +35,6 @@ const Bar = styled("div")`
     padding: 0 10px;
     border-radius: 2px;
     border: 1px solid #aaa;
-  }
-
-  & button {
-    height: 35px;
-    margin: 0 0 0 20px;
-    padding: 10px 20px;
-    color: #fff;
-    background: rgba(40, 50, 60, 1);
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
   }
 `;
 
@@ -87,6 +67,23 @@ const Center = styled("div")`
   flex: 1;
 `;
 
+const ExitButton = styled("button")`
+  height: 35px;
+  margin: 0 0 0 20px;
+  padding: 10px 20px;
+  color: #fff;
+  background: rgba(40, 50, 60, 1);
+  border-radius: 5px;
+
+  border: none;
+  cursor: pointer;
+
+  & .material-icons {
+    font-size: 20px;
+    line-height: 17.5px;
+  }
+`;
+
 export class AppBar extends React.Component {
   public render() {
     return (
@@ -96,29 +93,6 @@ export class AppBar extends React.Component {
             <h1>
               <Link to={APP}>Treadstone</Link>
             </h1>
-            <ul>
-              <li>
-                <Link to={PROJECTS}>Projects</Link>
-              </li>
-              <li>
-                <Link to={AGENDA}>Agenda</Link>
-              </li>
-              <li>
-                <Link to={JOURNAL}>Journal</Link>
-              </li>
-              <li>
-                <Link to={FEEDS}>Reader</Link>
-              </li>
-              {/* <li>
-                <Link to={BOOKMARKS}>Bookmarks</Link>
-              </li>
-              <li>
-                <Link to={STOCKS}>Stocks</Link>
-              </li>
-              <li>
-                <Link to={CONTACTS}>Contacts</Link>
-              </li> */}
-            </ul>
           </Left>
 
           <Center>
@@ -126,7 +100,9 @@ export class AppBar extends React.Component {
           </Center>
 
           <Right>
-            <button onClick={doSignOut}>Sign out</button>
+            <ExitButton onClick={doSignOut}>
+              <i className="material-icons">exit_to_app</i>
+            </ExitButton>
           </Right>
         </div>
       </Bar>

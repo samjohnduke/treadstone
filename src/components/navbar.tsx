@@ -6,9 +6,12 @@ import { withUser } from "src/firebase/withUser";
 import styled from "src/styled";
 
 const Nav = styled.div`
-  max-width: 1000px;
-  margin: auto;
+  flex: 0;
+  margin: 0 auto;
   display: flex;
+  background: #ffffff;
+  padding: 0 20px;
+  width: 100%;
 
   h1 {
     font-size: 1.6em;
@@ -74,7 +77,9 @@ export class NavbarUser extends React.Component<{ user?: firebase.User }> {
                   <Link to={Routes.APP}>App</Link>
                 </li>
                 <li>
-                  <a onClick={doSignOut}>Sign out</a>
+                  <a onClick={doSignOut}>
+                    <i className="material-icons">exit_to_app</i>
+                  </a>
                 </li>
               </>
             ) : (
