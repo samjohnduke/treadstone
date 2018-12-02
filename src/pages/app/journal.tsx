@@ -52,11 +52,20 @@ const Title = styled("div")`
   font-family: "PT Serif", serif;
 `;
 
+const Aside = styled("aside")`
+  padding: 10px 20px;
+  flex: 0 280px !important;
+  width: 280px;
+  background: #fff;
+  border-right: 1px solid #eee;
+  min-height: calc(100vh - 60px);
+`;
+
 class JournalsPageComponent extends React.Component<Props> {
   public render() {
     return (
       <AppPage>
-        <aside>
+        <Aside>
           <h2>Journal</h2>
           <NewBtn to="new">new</NewBtn>
           <List>
@@ -69,14 +78,13 @@ class JournalsPageComponent extends React.Component<Props> {
               </li>
             ))}
           </List>
-        </aside>
+        </Aside>
         <div>
           <Router>
             <NewJournalPage path="new" />
             <JournalPage journalId="" path=":journalId" />
             <JournalPageEdit journalId="" path=":journalId/edit" />
-            {this.props.list.length > 0 ? (
-              // <JournalPage journalId={this.props.list[0].key} path="/" />
+            {this.props.list.length > 0 ? ( // <JournalPage journalId={this.props.list[0].key} path="/" />
               <Redirect
                 from="/"
                 to={`/app/journal/${this.props.list[0].key}`}

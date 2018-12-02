@@ -2,11 +2,10 @@ import styled from "src/styled";
 
 export const AppPage = styled.div`
   display: flex;
-  max-width: 1000px;
   margin: auto;
   text-align: left;
 
-  & > aside {
+  & aside {
     flex: 0 0 200px;
   }
 

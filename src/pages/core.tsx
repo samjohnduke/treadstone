@@ -20,13 +20,11 @@ import { ProjectsPage } from "./app/projects";
 import { ReaderPage } from "./app/reader";
 import { StocksPage } from "./app/stocks";
 
+import { MainPage } from "src/design/mainPage";
+
 type Props = UserProps & RouteComponentProps;
 
 export class Core extends React.Component {
-  public cl(e: React.SyntheticEvent<HTMLElement>) {
-    console.log(e);
-  }
-
   public render() {
     return (
       <Page>
@@ -35,17 +33,19 @@ export class Core extends React.Component {
             <JournalProvider>
               <div style={{ width: "100%" }}>
                 <AppBar />
-                <Sidebar />
-                <Router>
-                  <HomePage path="/" />
-                  <ProjectsPage path={`${routes.PROJECTS}/*`} />
-                  <AgendaPage path={`${routes.AGENDA}/*`} />
-                  <JournalsPage list={[]} path={`${routes.JOURNAL}/*`} />
-                  <StocksPage path={routes.STOCKS} />
-                  <BookmarksPage path={routes.BOOKMARKS} />
-                  <ContacsPage path={routes.CONTACTS} />
-                  <ReaderPage path={`${routes.FEEDS}/*`} />
-                </Router>
+                <MainPage>
+                  <Sidebar />
+                  <Router>
+                    <HomePage path="/" />
+                    <ProjectsPage path={`${routes.PROJECTS}/*`} />
+                    <AgendaPage path={`${routes.AGENDA}/*`} />
+                    <JournalsPage list={[]} path={`${routes.JOURNAL}/*`} />
+                    <StocksPage path={routes.STOCKS} />
+                    <BookmarksPage path={routes.BOOKMARKS} />
+                    <ContacsPage path={routes.CONTACTS} />
+                    <ReaderPage path={`${routes.FEEDS}/*`} />
+                  </Router>
+                </MainPage>
               </div>
             </JournalProvider>
           </FeedProvider>

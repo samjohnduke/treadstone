@@ -10,6 +10,9 @@ const Bar = styled("div")`
   margin: 0 auto;
   background: #fff;
   box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   & .inner {
     padding: 0 20px;
@@ -65,6 +68,8 @@ const Right = styled("div")`
 
 const Center = styled("div")`
   flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ExitButton = styled("button")`
@@ -96,7 +101,11 @@ export class AppBar extends React.Component {
           </Left>
 
           <Center>
-            <input style={{ width: "100%" }} type="text" placeholder="Search" />
+            <input
+              style={{ display: "block", width: "500px", margin: "auto" }}
+              type="text"
+              placeholder="Search"
+            />
           </Center>
 
           <Right>

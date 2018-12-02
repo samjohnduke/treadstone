@@ -46,7 +46,7 @@ export const Menu = styled("div")`
 
 export const Toolbar = styled(Menu)`
   position: sticky;
-  top: 0;
+  top: 60px;
   padding: 10px;
   box-shadow: 3px 3px 15px -2px rgba(0, 0, 0, 0.1);
   background: #fff;
