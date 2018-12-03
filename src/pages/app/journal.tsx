@@ -1,5 +1,6 @@
 import { Link, Redirect, RouteComponentProps, Router } from "@reach/router";
 import * as React from "react";
+import { ActionButton } from "src/design/actionButton";
 import { AppPage } from "src/design/appPage";
 import { Journal } from "src/models/journal";
 import { withJournalCollection } from "src/providers/journal";
@@ -12,28 +13,19 @@ type Props = RouteComponentProps & {
   list: Journal[];
 };
 
-const NewBtn = styled(Link)`
-  display: inline-block;
-  color: #fff;
-  border-radius: 25px;
-  padding: 5px 25px;
-  height: 25px;
-  font-size: 0.9em;
-  line-height: 25px;
-  background: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-`;
-
 const List = styled("ul")`
   list-style: none;
-  margin: 0;
+  margin: 20px -20px;
   padding: 0;
-  margin-top: 30px;
+
+  & li {
+    border-top: 1px solid #eee;
+    padding: 30px 20px;
+  }
 
   & a {
     display: block;
     text-decoration: none;
-    margin-top: 20px;
   }
 `;
 
@@ -56,7 +48,7 @@ const Aside = styled("aside")`
   padding: 10px 20px;
   flex: 0 280px !important;
   width: 280px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
   border-right: 1px solid #eee;
   min-height: calc(100vh - 60px);
 `;
@@ -67,7 +59,9 @@ class JournalsPageComponent extends React.Component<Props> {
       <AppPage>
         <Aside>
           <h2>Journal</h2>
-          <NewBtn to="new">new</NewBtn>
+          <ActionButton as={Link} to="new">
+            new
+          </ActionButton>
           <List>
             {this.props.list.map(j => (
               <li key={j.key}>
@@ -84,10 +78,12 @@ class JournalsPageComponent extends React.Component<Props> {
             <NewJournalPage path="new" />
             <JournalPage journalId="" path=":journalId" />
             <JournalPageEdit journalId="" path=":journalId/edit" />
-            {this.props.list.length > 0 ? ( // <JournalPage journalId={this.props.list[0].key} path="/" />
+            {this.props.list.length > 0 ? (
               <Redirect
                 from="/"
-                to={`/app/journal/${this.props.list[0].key}`}
+                to={`/app/journal/${
+                  this.props.list[0].key // <JournalPage journalId={this.props.list[0].key} path="/" />
+                }`}
                 noThrow={true}
               />
             ) : null}

@@ -9,10 +9,15 @@ const Bar = styled("div")`
   height: 60px;
   margin: 0 auto;
   background: #fff;
+  color: ${p => p.theme.textColor};
   box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
+
+  & a {
+    color: inherit;
+  }
 
   & .inner {
     padding: 0 20px;

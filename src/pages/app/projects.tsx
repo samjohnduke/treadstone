@@ -10,13 +10,13 @@ export class ProjectsPage extends React.Component<RouteComponentProps> {
   public render() {
     return (
       <AppPage>
-        <div>
-          <Router>
+        <>
+          <Router style={{ flex: 1 }}>
             <ProjectsList list={[]} path="/" />
             <ProjectPage projectId="" project={undefined} path={":projectId"} />
             <NewProjectPage path="new" />
           </Router>
-        </div>
+        </>
       </AppPage>
     );
   }

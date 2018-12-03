@@ -35,7 +35,7 @@ export class Core extends React.Component {
                 <AppBar />
                 <MainPage>
                   <Sidebar />
-                  <Router>
+                  <Router style={{ flex: 1 }}>
                     <HomePage path="/" />
                     <ProjectsPage path={`${routes.PROJECTS}/*`} />
                     <AgendaPage path={`${routes.AGENDA}/*`} />

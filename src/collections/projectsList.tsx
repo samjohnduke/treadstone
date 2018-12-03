@@ -1,4 +1,4 @@
-import { Link, navigate, RouteComponentProps } from "@reach/router";
+import { navigate, RouteComponentProps } from "@reach/router";
 import * as React from "react";
 import { Project } from "src/models/project";
 import { withProjectCollection } from "src/providers/project";
@@ -9,13 +9,11 @@ interface Props {
 }
 
 const List = styled("div")`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
   margin-top: 10px;
 `;
 
 const ProjectDetails = styled("div")`
+  display: flex;
   padding: 20px;
   background: #fff;
   box-shadow: 4px 4px 20px -4px rgba(100, 100, 100, 0.15);
@@ -27,33 +25,12 @@ const ProjectDetails = styled("div")`
   }
 `;
 
-const NewBtn = styled(Link)`
-  display: inline-block;
-  color: #fff;
-  border-radius: 25px;
-  padding: 5px 25px;
-  height: 25px;
-  font-size: 0.9em;
-  line-height: 25px;
-  background: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-`;
+const Container = styled("div")`
+  flex: 1;
 
-const PList = styled("ul")`
-  padding: 0;
-  margin: 10px 0 0 0;
-  list-style: none;
-
-  & li {
-    padding: 2px 0;
-  }
-`;
-
-const Pa = styled("div")`
-  display: flex;
-
-  & aside {
-    flex: 0 0 200px;
+  & > div {
+    width: 800px;
+    margin: 0 auto;
   }
 `;
 
@@ -62,13 +39,16 @@ type PLProps = Props & RouteComponentProps;
 class ProjectsListComponent extends React.Component<PLProps> {
   public render() {
     return (
-      <Pa>
-        <aside>
+      <Container>
+        <div>
           <h2>Projects</h2>
-          <NewBtn to="new">New</NewBtn>
-          <PList />
-        </aside>
+        </div>
         <List>
+          <div>
+            <div>Name</div>
+            <div>Description</div>
+            <div>Tags</div>
+          </div>
           {this.props.list.map(p => (
             <ProjectDetails
               key={p.name}
@@ -80,7 +60,7 @@ class ProjectsListComponent extends React.Component<PLProps> {
             </ProjectDetails>
           ))}
         </List>
-      </Pa>
+      </Container>
     );
   }
 }
