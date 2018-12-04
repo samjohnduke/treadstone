@@ -7,13 +7,19 @@ import { TasksList } from './agendaList';
 export class AgendaPage extends React.Component<RouteComponentProps> {
   public render() {
     return (
-      <AppPage>
+      <AppPage style={{display: 'block'}}>
         <TaskProvider>
-            <h2>Agenda</h2>
-          <div>
-            <Router>
-              <TasksList list={[]} path="/" />
-            </Router>
+          <div style={{display: 'flex', borderBottom: '1px solid #dfdfdf', flex: 1, padding: 10}}>
+            <div style={{flex: '1 1 800px', maxWidth: 800, margin: '0 auto'}}>
+              <h2>Agenda</h2>
+            </div>
+          </div>
+          <div style={{display: 'flex', flex: 1, padding: 10}}>
+            <div style={{flex: '1 1 800px', maxWidth: 800, margin: '0 auto'}}>
+              <Router>
+                <TasksList list={[]} path="/" />
+              </Router>
+            </div>
           </div>
         </TaskProvider>
       </AppPage>

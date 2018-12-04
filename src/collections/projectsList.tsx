@@ -18,19 +18,15 @@ const ProjectDetails = styled("div")`
   background: #fff;
   box-shadow: 4px 4px 20px -4px rgba(100, 100, 100, 0.15);
   cursor: pointer;
-  transition: transform 0.2s;
-
-  &:active {
-    transform: scale(0.96);
-  }
+  border-top: 1px solid #eee;
 `;
 
 const Container = styled("div")`
   flex: 1;
 
-  & > div {
+  & > ${List} {
     width: 800px;
-    margin: 0 auto;
+    margin: 30px auto;
   }
 `;
 
@@ -40,23 +36,20 @@ class ProjectsListComponent extends React.Component<PLProps> {
   public render() {
     return (
       <Container>
-        <div>
-          <h2>Projects</h2>
+        <div style={{display: 'flex', borderBottom: '1px solid #dfdfdf', flex: 1, padding: 10}}>
+          <div style={{flex: '1 1 800px', maxWidth: 800, margin: '0 auto'}}>
+            <h2>Projects</h2>
+          </div>
         </div>
         <List>
-          <div>
-            <div>Name</div>
-            <div>Description</div>
-            <div>Tags</div>
-          </div>
           {this.props.list.map(p => (
             <ProjectDetails
               key={p.name}
               onClick={() => navigate(`./projects/${p.key}`)}
             >
-              <h3>{p.name}</h3>
-              <div>{p.description}</div>
-              <div>{p.tags.join(", ")}</div>
+              <h3 style={{margin: '0', lineHeight: '1.4', flex: '0 150px'}}>{p.name}</h3>
+              <div style={{lineHeight: '1.4',flex: '1'}}>{p.description}</div>
+              <div style={{lineHeight: '1.4',flex: '0 150px'}}>{p.tags.join(", ")}</div>
             </ProjectDetails>
           ))}
         </List>
