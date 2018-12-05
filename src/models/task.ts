@@ -24,7 +24,8 @@ export const TaskRecord = Record({
   estimate: 1,
   labels: [],
   name: "",
-  project: ""
+  project: "", 
+  tags: [],
 });
 
 export class Task extends TaskRecord implements ITask, Ref {
