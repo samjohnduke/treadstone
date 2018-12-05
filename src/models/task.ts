@@ -1,25 +1,30 @@
 import { firestore } from "firebase";
 import { Record } from "immutable";
-import { ActionCreator, Doc, Ref, } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer,  } from './store';
-
+import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
+import { Action, LiveStore, Reducer } from "./store";
 
 export interface ITask {
   name: string;
   tags: string[];
   description: string;
-  tasks: any[];
-  hasCode: boolean;
-  codeURL: string;
+  labels: string[];
+  checklist: string[];
+  comments: [];
+  dueDate: firestore.Timestamp;
+  estimate: number;
+  project: string;
 }
 
 export const TaskRecord = Record({
-  codeURL: "",
+  checklist: [],
+  comments: [],
+  completedAt: firestore.Timestamp.now(),
   description: "",
-  hasCode: false,
+  dueDate: firestore.Timestamp.now(),
+  estimate: 1,
+  labels: [],
   name: "",
-  tags: [],
-  tasks: []
+  project: ""
 });
 
 export class Task extends TaskRecord implements ITask, Ref {
@@ -28,9 +33,12 @@ export class Task extends TaskRecord implements ITask, Ref {
   public name: string;
   public tags: string[];
   public description: string;
-  public tasks: any[];
-  public codeURL: string;
-  public hasCode: boolean;
+  public labels: string[];
+  public checklist: string[];
+  public comments: [];
+  public dueDate: firestore.Timestamp;
+  public estimate: number;
+  public project: string;
 
   constructor(
     key: string | undefined,
@@ -64,18 +72,12 @@ export const TaskFactory = {
   }
 };
 
-
-
-
 export interface TaskState {
   tasks: { [key: string]: Task };
 }
 
-export const reducer: Reducer<TaskState, Action<Task>> = (
-  state,
-  action
-) => {
-  const nextState = { ...state, tasks: {...state.tasks} };
+export const reducer: Reducer<TaskState, Action<Task>> = (state, action) => {
+  const nextState = { ...state, tasks: { ...state.tasks } };
 
   switch (action.action) {
     case ADD_TASK:

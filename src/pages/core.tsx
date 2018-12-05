@@ -12,19 +12,19 @@ import { ProjectProvider } from "src/providers/project";
 
 import "src/firebase/firestore";
 
-import { AgendaPage } from "./app/agenda";
-import { BookmarksPage } from "./app/bookmarks";
-import { ContacsPage } from "./app/contacts";
-import { HomePage } from "./app/home";
+import { BookmarksPage } from "../apps/bookmarks/pages/bookmarks";
+import { ContacsPage } from "../apps/contacts/pages/contacts";
+import { AgendaPage } from "../apps/diary/pages/agenda";
+import { HomePage } from "./app";
 
 import { JournalsPage } from "../apps/journal/pages/journal";
 
 import { ReaderPage } from "../apps/reader/pages/reader";
-import { StocksPage } from "./app/stocks";
+import { StocksPage } from "../apps/stocks/pages/stocks";
 
 import { MainPage } from "src/design/mainPage";
 
-const ProjectsPage = React.lazy(() => import("src/apps/projects"))
+const ProjectsPage = React.lazy(() => import("src/apps/projects"));
 
 type Props = UserProps & RouteComponentProps;
 

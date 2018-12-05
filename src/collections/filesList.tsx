@@ -1,5 +1,6 @@
 import * as React from "react";
 import { File } from "src/models/file";
+import styled from "src/styled";
 
 type FileOrPromise = File | Promise<File>;
 
@@ -23,6 +24,24 @@ const isPromise = (file: object): file is Promise<File> => {
 const isFulfilled = (all: any[]): all is File[] => {
   return all.every(isFile);
 };
+
+const List = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  & li {
+    background: #fff;
+    padding: 10px 15px;
+    box-shadow: 2px 2px 30px -4px rgba(0, 0, 0, 0.1);
+    height: 180px;
+    word-wrap: break-word;
+    max-width: 180px;
+  }
+`;
 
 export class FileList extends React.Component<Props, State> {
   public state: State;
@@ -60,11 +79,16 @@ export class FileList extends React.Component<Props, State> {
 
   public render() {
     return (
-      <ul>
-        {this.state.files.map((t, i) => (
-          <li key={i}>{t ? t.url : "loading"}</li>
-        ))}
-      </ul>
+      <>
+        <List>
+          {this.state.files.map((t, i) => (
+            <li tabIndex={0} key={i}>
+              {t ? t.url : "loading"}
+            </li>
+          ))}
+        </List>
+        <a>View all</a>
+      </>
     );
   }
 }
