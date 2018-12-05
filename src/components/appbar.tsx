@@ -8,8 +8,8 @@ const Bar = styled("div")`
   width: 100%;
   height: 60px;
   margin: 0 auto;
-  background: #fff;
-  color: ${p => p.theme.textColor};
+  background: ${p => p.theme.primaryColor};
+  color: ${p => p.theme.primaryColorInverted};
   box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
@@ -38,11 +38,34 @@ const Bar = styled("div")`
     }
   }
 
+  & button {
+    background: #fff;
+    color: #000;
+  }
+
   & input {
     height: 35px;
     padding: 0 10px;
-    border-radius: 2px;
-    border: 1px solid #aaa;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: ${p => p.theme.primaryColorInverted};
+    transition: background 0.3s;
+    outline: none;
+    font-size: 1em;
+
+    &::placeholder {
+      color: ${p => p.theme.primaryColorInverted};
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus {
+      background: #fff;
+      color: ${p => p.theme.textColor};
+    } 
   }
 `;
 

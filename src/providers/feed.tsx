@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Feed, FeedStore } from "src/models/feed";
+import { Feed, FeedStore } from "src/apps/reader/models/feed";
 
 interface Provi {
   map: { [key: string]: Feed };

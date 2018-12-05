@@ -1,7 +1,7 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action,  Reducer } from "./store";
+import { Action,  Reducer } from "../../../models/store";
 
 export interface IFeedItem {
   name: string;

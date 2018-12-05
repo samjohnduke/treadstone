@@ -1,6 +1,6 @@
 import { navigate, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Feed } from "src/models/feed";
+import { Feed } from "src/apps/reader/models/feed";
 import { withFeedCollection } from "src/providers/feed";
 import styled from "src/styled";
 

@@ -1,6 +1,6 @@
 import { RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Feed } from "src/models/feed";
+import { Feed } from "src/apps/reader/models/feed";
 import { withFeed } from "src/providers/feed";
 
 type Props = RouteComponentProps & {
