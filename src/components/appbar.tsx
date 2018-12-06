@@ -4,6 +4,16 @@ import { APP } from "src/constants/routes";
 import { doSignOut } from "src/firebase/auth";
 import styled from "src/styled";
 
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuLink,
+  MenuList
+} from "@reach/menu-button";
+
+import "@reach/menu-button/styles.css";
+
 const Bar = styled("div")`
   width: 100%;
   height: 60px;
@@ -65,7 +75,7 @@ const Bar = styled("div")`
     &:focus {
       background: #fff;
       color: ${p => p.theme.textColor};
-    } 
+    }
   }
 `;
 
@@ -100,20 +110,26 @@ const Center = styled("div")`
   justify-content: center;
 `;
 
-const ExitButton = styled("button")`
-  height: 35px;
-  margin: 0 0 0 20px;
-  padding: 10px 20px;
-  color: #fff;
-  background: rgba(40, 50, 60, 1);
-  border-radius: 5px;
+// const ExitButton = styled("button")`
+//   height: 35px;
+//   margin: 0 0 0 20px;
+//   padding: 10px 20px;
+//   color: #fff;
+//   background: rgba(40, 50, 60, 1);
+//   border-radius: 5px;
 
-  border: none;
-  cursor: pointer;
+//   border: none;
+//   cursor: pointer;
 
-  & .material-icons {
-    font-size: 20px;
-    line-height: 17.5px;
+//   & .material-icons {
+//     font-size: 20px;
+//     line-height: 17.5px;
+//   }
+// `;
+
+const StyledMenuList = styled(MenuList)`
+  &[data-reach-menu-list] {
+    font-size: 1em;
   }
 `;
 
@@ -137,9 +153,13 @@ export class AppBar extends React.Component {
           </Center>
 
           <Right>
-            <ExitButton onClick={doSignOut}>
-              <i className="material-icons">exit_to_app</i>
-            </ExitButton>
+            <Menu style={{ zIndex: 10000 }}>
+              <MenuButton>Actions</MenuButton>
+              <StyledMenuList>
+                <MenuLink to="profile">My Profile</MenuLink>
+                <MenuItem onSelect={doSignOut}>Logout</MenuItem>
+              </StyledMenuList>
+            </Menu>
           </Right>
         </div>
       </Bar>

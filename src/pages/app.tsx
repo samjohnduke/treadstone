@@ -10,10 +10,10 @@ import {
   JOURNAL,
   PROJECTS
   // STOCKS,
-} from "src/constants/routes"
-import styled from 'src/styled';
+} from "src/constants/routes";
+import styled from "src/styled";
 
-const AppList = styled('ul')`
+const AppList = styled("ul")`
   list-style: none;
   display: flex;
   margin: 0;
@@ -21,7 +21,7 @@ const AppList = styled('ul')`
 
   & li {
     padding: 10px 30px;
-    
+
     &:first-of-type {
       padding: 10px 30px 10px 10px;
     }
@@ -42,33 +42,33 @@ const AppList = styled('ul')`
       }
     }
   }
-`
+`;
 
 export class HomePage extends React.Component<RouteComponentProps> {
   public render() {
     const date = new Date();
     const currentHour = date.getHours();
 
-    let title = "Good morning"
+    let title = "Good morning";
 
-    if(currentHour >= 12) {
-      title = "Good afternoon"
+    if (currentHour >= 12) {
+      title = "Good afternoon";
     }
 
-    if(currentHour >= 18) {
-      title = "Good evening"
+    if (currentHour >= 18) {
+      title = "Good evening";
     }
 
     return (
       <AppPage>
-        <div style={{width: '100%'}}>
-          <div style={{display: 'flex', flex: 1, padding: 10}}>
-            <div style={{flex: '1 1 800px', maxWidth: 800, margin: '0 auto'}}>
-              <h2>{title}</h2>
+        <div style={{ width: "100%" }}>
+          <div style={{ display: "flex", flex: 1, padding: 10 }}>
+            <div style={{ flex: "1 1 800px", maxWidth: 800, margin: "0 auto" }}>
+              <h2 style={{ fontSize: "2em" }}>{title}</h2>
             </div>
           </div>
-          <div style={{display: 'flex', flex: 1, padding: 10}}>
-            <div style={{flex: '1 1 800px', maxWidth: 800, margin: '0 auto'}}>
+          <div style={{ display: "flex", flex: 1, padding: 10 }}>
+            <div style={{ flex: "1 1 800px", maxWidth: 800, margin: "0 auto" }}>
               <h3>Recent Apps</h3>
               <AppList>
                 <li>
@@ -96,6 +96,12 @@ export class HomePage extends React.Component<RouteComponentProps> {
                   </Link>
                 </li>
               </AppList>
+            </div>
+          </div>
+          <div style={{ display: "flex", flex: 1, padding: 10 }}>
+            <div style={{ flex: "1 1 800px", maxWidth: 800, margin: "0 auto" }}>
+              <h3>Recent Activity</h3>
+              <p>Nothing has happened recently.</p>
             </div>
           </div>
         </div>

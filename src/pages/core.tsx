@@ -23,6 +23,7 @@ import { ReaderPage } from "../apps/reader/pages/reader";
 import { StocksPage } from "../apps/stocks/pages/stocks";
 
 import { MainPage } from "src/design/mainPage";
+import { ProfilePage } from "./profile";
 
 const ProjectsPage = React.lazy(() => import("src/apps/projects"));
 
@@ -48,6 +49,7 @@ export class Core extends React.Component {
                       <BookmarksPage path={`${routes.BOOKMARKS}/*`} />
                       <ContacsPage path={`${routes.CONTACTS}/*`} />
                       <ReaderPage path={`${routes.FEEDS}/*`} />
+                      <ProfilePage path={`${routes.PROFILE}/*`} />
                     </Router>
                   </React.Suspense>
                 </MainPage>

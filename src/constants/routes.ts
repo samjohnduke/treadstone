@@ -13,3 +13,4 @@ export const STOCKS = "stocks";
 export const BOOKMARKS = "bookmarks";
 export const CONTACTS = "contacts";
 export const FEEDS = "feeds";
+export const PROFILE = "profile";

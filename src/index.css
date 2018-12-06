@@ -15,3 +15,7 @@ h4 {
 * {
   box-sizing: border-box;
 }
+
+[data-reach-menu] {
+  z-index: 99999;
+}
