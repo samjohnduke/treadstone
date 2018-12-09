@@ -5,10 +5,12 @@ import { Doc, Ref } from "src/firebase/firestore";
 export interface IFile {
   name: string;
   url: string;
+  publicUrl: string;
 }
 
 export const FileRecord = Record({
   name: "",
+  publicUrl: "",
   url: ""
 });
 
@@ -17,6 +19,7 @@ export class File extends FileRecord implements IFile, Ref {
   public ref: firebase.firestore.DocumentReference | undefined;
   public name: string;
   public url: string;
+  public publicUrl: string;
 
   constructor(
     key: string | undefined,

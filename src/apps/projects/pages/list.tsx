@@ -1,10 +1,10 @@
 import { Link, navigate, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Project } from "src/models/project";
+import { Project } from "src/apps/projects/models/project";
 import { withProjectCollection } from "src/providers/project";
 import styled from "src/styled";
 
-import { ActionButton } from 'src/design/actionButton';
+import { ActionButton } from "src/design/actionButton";
 
 interface Props {
   list: Project[];
@@ -38,11 +38,32 @@ class ProjectsListComponent extends React.Component<PLProps> {
   public render() {
     return (
       <Container>
-        <div style={{display: 'flex', flex: 1, padding: 10}}>
-          <div style={{flex: '1 1 800px', maxWidth: 800, margin: '0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <h2 style={{flex: 1}}>Projects</h2>
-            <div style={{flex: '0 100px'}}>
-              <ActionButton style={{display: 'block', textDecoration: 'none'}} as={Link} to="./new"><i style={{verticalAlign: 'bottom'}} className="material-icons">add</i> <span style={{lineHeight: 1.5}}>New</span></ActionButton>
+        <div style={{ display: "flex", flex: 1, padding: 10 }}>
+          <div
+            style={{
+              alignItems: "center",
+              display: "flex",
+              flex: "1 1 800px",
+              justifyContent: "center",
+              margin: "0 auto",
+              maxWidth: 800
+            }}
+          >
+            <h2 style={{ flex: 1 }}>Projects</h2>
+            <div style={{ flex: "0 100px" }}>
+              <ActionButton
+                style={{ display: "block", textDecoration: "none" }}
+                as={Link}
+                to="./new"
+              >
+                <i
+                  style={{ verticalAlign: "bottom" }}
+                  className="material-icons"
+                >
+                  add
+                </i>{" "}
+                <span style={{ lineHeight: 1.5 }}>New</span>
+              </ActionButton>
             </div>
           </div>
         </div>
@@ -52,9 +73,15 @@ class ProjectsListComponent extends React.Component<PLProps> {
               key={p.name}
               onClick={() => navigate(`./projects/${p.key}`)}
             >
-              <h3 style={{margin: '0', lineHeight: '1.4', flex: '0 150px'}}>{p.name}</h3>
-              <div style={{lineHeight: '1.4',flex: '1'}}>{p.description}</div>
-              <div style={{lineHeight: '1.4',flex: '0 150px'}}>{p.tags.join(", ")}</div>
+              <h3 style={{ margin: "0", lineHeight: "1.4", flex: "0 150px" }}>
+                {p.name}
+              </h3>
+              <div style={{ lineHeight: "1.4", flex: "1" }}>
+                {p.description}
+              </div>
+              <div style={{ lineHeight: "1.4", flex: "0 150px" }}>
+                {p.tags.join(", ")}
+              </div>
             </ProjectDetails>
           ))}
         </List>

@@ -1,8 +1,8 @@
 import { RouteComponentProps } from "@reach/router";
 import * as React from "react";
+import { Project } from "src/apps/projects/models/project";
 import { FileList } from "src/collections/filesList";
 import { TaskList } from "src/collections/taskList";
-import { Project } from "src/models/project";
 import { withProject } from "src/providers/project";
 import styled from "src/styled";
 
@@ -41,7 +41,11 @@ class ProjectPageComponent extends React.Component<Props> {
         </div>
         <div>
           <h3>Tasks</h3>
-          <div>{project.tasks ? <TaskList tasks={project.tasks} /> : null}</div>
+          <div>
+            {project.tasks ? (
+              <TaskList tasks={project.tasks.slice(0, 4)} />
+            ) : null}
+          </div>
         </div>
         <div>
           <h3>Files</h3>

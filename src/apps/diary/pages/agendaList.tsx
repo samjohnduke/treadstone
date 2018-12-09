@@ -1,7 +1,7 @@
 import { navigate, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Task } from "src/models/task";
-import { withTaskCollection } from "src/providers/tasks";
+import { Task } from "src/shared/tasks/models/task";
+import { withTaskCollection } from "src/shared/tasks/providers/tasks";
 import styled from "src/styled";
 
 interface Props {
@@ -27,7 +27,6 @@ const TaskDetails = styled("div")`
     transform: scale(0.96);
   }
 `;
-
 
 const Pa = styled("div")`
   display: flex;
@@ -60,6 +59,4 @@ class TasksListComponent extends React.Component<PLProps> {
   }
 }
 
-export const TasksList = withTaskCollection<PLProps>(
-  TasksListComponent
-);
+export const TasksList = withTaskCollection<PLProps>(TasksListComponent);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Task, TaskStore } from "src/models/task";
+import { Task, TaskStore } from "src/shared/tasks/models/task";
 
 interface Provi {
   map: { [key: string]: Task };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Project, ProjectStore } from "src/models/project";
+import { Project, ProjectStore } from "src/apps/projects/models/project";
 
 interface Provi {
   map: { [key: string]: Project };

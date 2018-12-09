@@ -1,7 +1,7 @@
 import { firestore } from "firebase";
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "./store";
+import { Action, LiveStore, Reducer } from "../../../models/store";
 
 export interface ITask {
   name: string;
@@ -24,8 +24,8 @@ export const TaskRecord = Record({
   estimate: 1,
   labels: [],
   name: "",
-  project: "", 
-  tags: [],
+  project: "",
+  tags: []
 });
 
 export class Task extends TaskRecord implements ITask, Ref {

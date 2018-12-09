@@ -7,3 +7,5 @@ declare module "*.bmp";
 declare module "*.tiff";
 
 declare module "@reach/menu-button";
+declare module "@reach/visually-hidden";
+declare module "@reach/dialog";

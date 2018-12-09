@@ -1,17 +1,17 @@
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { File, FileFactory } from "../../../models/file";
-import { Action, LiveStore, Reducer } from "../../../models/store";
-import { Task, TaskFactory } from "../../../models/task";
+import { File, FileFactory } from "src/models/file";
+import { Action, LiveStore, Reducer } from "src/models/store";
+import { Task, TaskFactory } from "src/shared/tasks/models/task";
 
 export interface IProject {
   name: string;
   tags: string[];
   description: string;
-  tasks: Task[] | Array<Promise<Task>>;
+  tasks: Array<Promise<Task>>;
   hasCode: boolean;
   codeURL: string;
-  files: File[] | Array<Promise<File>>;
+  files: Array<Promise<File>>;
 }
 
 export const ProjectRecord = Record({
@@ -30,10 +30,10 @@ export class Project extends ProjectRecord implements IProject, Ref {
   public name: string;
   public tags: string[];
   public description: string;
-  public tasks: Task[] | Array<Promise<Task>>;
+  public tasks: Array<Promise<Task>>;
   public codeURL: string;
   public hasCode: boolean;
-  public files: File[] | Array<Promise<File>>;
+  public files: Array<Promise<File>>;
 
   constructor(
     key: string,
@@ -63,7 +63,7 @@ export const ProjectFactory = {
 
     return new Project(doc.id, doc.ref, p as IProject);
   }
-}
+};
 
 export interface ProjectState {
   projects: { [key: string]: Project };

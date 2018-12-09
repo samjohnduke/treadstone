@@ -1,7 +1,7 @@
 import { RouteComponentProps, Router } from "@reach/router";
 import * as React from "react";
 import { AppPage } from "src/design/appPage";
-import { TaskProvider } from "src/providers/tasks";
+import { TaskProvider } from "src/shared/tasks/providers/tasks";
 import { TasksList } from "./agendaList";
 
 export class AgendaPage extends React.Component<RouteComponentProps> {

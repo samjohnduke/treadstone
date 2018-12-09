@@ -74,7 +74,6 @@ export class FileList extends React.Component<Props, State> {
     } else {
       this.state.files = files;
     }
-    console.log(this.state.files);
   }
 
   public render() {
@@ -83,7 +82,14 @@ export class FileList extends React.Component<Props, State> {
         <List>
           {this.state.files.map((t, i) => (
             <li tabIndex={0} key={i}>
-              {t ? t.url : "loading"}
+              {t ? (
+                <img
+                  src={t.publicUrl}
+                  style={{ width: "100%", height: "auto" }}
+                />
+              ) : (
+                "loading"
+              )}
             </li>
           ))}
         </List>
