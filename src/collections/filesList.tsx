@@ -93,7 +93,6 @@ export class FileList extends React.Component<Props, State> {
             </li>
           ))}
         </List>
-        <a>View all</a>
       </>
     );
   }

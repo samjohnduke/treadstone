@@ -46,7 +46,6 @@ export class TaskList extends React.Component<Props> {
             </Async>
           ))}
         </List>
-        <a>View all</a>
       </>
     );
   }

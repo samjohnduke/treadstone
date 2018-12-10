@@ -9,6 +9,7 @@ interface Provi {
 export const FeedContext = React.createContext<Provi>({ list: [], map: {} });
 
 interface InterfaceProps {
+  userId: string;
   children: React.ReactNode;
 }
 
@@ -21,12 +22,12 @@ export class FeedProvider extends React.Component<
   InterfaceProps,
   InterfaceState
 > {
-  private pjs: typeof FeedStore;
+  private pjs: any;
 
   constructor(props: any) {
     super(props);
 
-    this.pjs = FeedStore;
+    this.pjs = FeedStore(props.userId);
 
     this.state = {
       list: [],

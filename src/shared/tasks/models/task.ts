@@ -1,7 +1,8 @@
 import { firestore } from "firebase";
 import { Record } from "immutable";
+import { firestore as FS } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "../../../models/store";
+import { Action, LiveStore, Reducer } from "../../../models/collection";
 
 export interface ITask {
   name: string;
@@ -131,10 +132,13 @@ export const Remove = (todo: Task): Action<Task> => {
   };
 };
 
-export const TaskStore = new LiveStore(
-  "/tasks", // collection to listen on
-  { tasks: {} }, // initial state of todos
-  TaskFactory, // how to make a todo from a firebase doc
-  TaskActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+export const TaskStore = (userId: string) =>
+  new LiveStore(
+    FS.collection("users")
+      .doc(userId)
+      .collection("tasks"), // collection to listen on
+    { tasks: {} }, // initial state of todos
+    TaskFactory, // how to make a todo from a firebase doc
+    TaskActionCreator, // how to create update actions
+    reducer // how to change the state from A => B
+  );

@@ -1,7 +1,8 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
+import { firestore } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "../../../models/store";
+import { Action, LiveStore, Reducer } from "src/models/collection";
 
 export interface IBookmark {
   name: string;
@@ -60,11 +61,11 @@ export class Bookmark extends BookmarkRecord implements IBookmark, Ref {
   }
 }
 
-export const BookFactory = { 
+export const BookFactory = {
   fromFirebase: (doc: Doc): Bookmark => {
     return new Bookmark(doc.id, doc.ref, doc.data() as IBookmark);
   }
-}
+};
 
 export interface BookmarkState {
   bookmarks: { [key: string]: Bookmark };
@@ -130,10 +131,14 @@ export const Remove = (todo: Bookmark): Action<Bookmark> => {
   };
 };
 
-export const JournalStore = new LiveStore(
-  "/bookmarks", // collection to listen on
-  { bookmarks: {} }, // initial state of todos
-  BookFactory, // how to make a todo from a firebase doc
-  BookmarkActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+export const BookmarkStore = (userId: string) =>
+  new LiveStore(
+    firestore
+      .collection("users")
+      .doc(userId)
+      .collection("bookmarks"), // collection to listen on
+    { bookmarks: {} }, // initial state of todos
+    BookFactory, // how to make a todo from a firebase doc
+    BookmarkActionCreator, // how to create update actions
+    reducer // how to change the state from A => B
+  );

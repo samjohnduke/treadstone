@@ -29,17 +29,25 @@ interface ListElementProps {
 export class ListElement extends React.Component<ListElementProps> {
   public state = { open: false };
 
+  public open = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === " " || e.key === "Enter") {
+      this.setState({ open: true });
+    }
+  };
+
   public render() {
     const { task } = this.props;
     return (
       <>
-        <Item tabIndex={0}>
+        <Item tabIndex={0} onKeyPress={this.open}>
           <input type="checkbox" />
           <a onClick={() => this.setState({ open: true })}>
             <span>{task.name}</span>
             <span>{task.description}</span>
           </a>
-          <span>{task.dueDate.toDate().toISOString()}</span>
+          <a onClick={() => this.setState({ open: true })}>
+            <span>{task.dueDate.toDate().toISOString()}</span>
+          </a>
         </Item>
         <TaskEditor
           task={task}

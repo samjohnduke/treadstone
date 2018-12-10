@@ -1,7 +1,8 @@
 import { Record } from "immutable";
+import { firestore } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
+import { Action, LiveStore, Reducer } from "src/models/collection";
 import { File, FileFactory } from "src/models/file";
-import { Action, LiveStore, Reducer } from "src/models/store";
 import { Task, TaskFactory } from "src/shared/tasks/models/task";
 
 export interface IProject {
@@ -126,10 +127,14 @@ export const Remove = (todo: Project): Action<Project> => {
   };
 };
 
-export const ProjectStore = new LiveStore(
-  "/projects", // collection to listen on
-  { projects: {} }, // initial state of todos
-  ProjectFactory, // how to make a todo from a firebase doc
-  ProjectActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+export const ProjectStore = (userId: string) =>
+  new LiveStore(
+    firestore
+      .collection("users")
+      .doc(userId)
+      .collection("projects"), // collection to listen on
+    { projects: {} }, // initial state of todos
+    ProjectFactory, // how to make a todo from a firebase doc
+    ProjectActionCreator, // how to create update actions
+    reducer // how to change the state from A => B
+  );

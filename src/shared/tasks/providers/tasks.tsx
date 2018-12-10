@@ -9,6 +9,7 @@ interface Provi {
 export const TaskContext = React.createContext<Provi>({ list: [], map: {} });
 
 interface InterfaceProps {
+  userId: string;
   children: React.ReactNode;
 }
 
@@ -21,12 +22,12 @@ export class TaskProvider extends React.Component<
   InterfaceProps,
   InterfaceState
 > {
-  private pjs: typeof TaskStore;
+  private pjs: any;
 
   constructor(props: any) {
     super(props);
 
-    this.pjs = TaskStore;
+    this.pjs = TaskStore(this.props.userId);
 
     this.state = {
       list: [],

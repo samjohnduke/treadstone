@@ -29,13 +29,18 @@ const ProjectsPage = React.lazy(() => import("src/apps/projects"));
 
 type Props = UserProps & RouteComponentProps;
 
-export class Core extends React.Component {
+export class Core extends React.Component<Props> {
   public render() {
+    console.log(this.props.user ? this.props.user.uid : undefined);
+    if (!this.props.user) {
+      return null;
+    }
+
     return (
       <Page>
-        <ProjectProvider>
-          <FeedProvider>
-            <JournalProvider>
+        <ProjectProvider userId={this.props.user.uid}>
+          <FeedProvider userId={this.props.user.uid}>
+            <JournalProvider userId={this.props.user.uid}>
               <div style={{ width: "100%" }}>
                 <AppBar />
                 <MainPage>

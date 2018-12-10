@@ -1,14 +1,19 @@
 import { RouteComponentProps, Router } from "@reach/router";
 import * as React from "react";
+import * as routes from "src/constants/routes";
 import { AppPage } from "src/design/appPage";
+import { withAuthorization } from "src/firebase/withAuthorisation";
+import { UserProps } from "src/firebase/withUser";
 import { TaskProvider } from "src/shared/tasks/providers/tasks";
 import { TasksList } from "./agendaList";
 
-export class AgendaPage extends React.Component<RouteComponentProps> {
+type Props = UserProps & RouteComponentProps;
+
+export class AgendaPageC extends React.Component<Props> {
   public render() {
     return (
       <AppPage style={{ display: "block" }}>
-        <TaskProvider>
+        <TaskProvider userId={this.props.user!.uid}>
           <div
             style={{ display: "flex", flex: 1, padding: "10px 10px 0 10px" }}
           >
@@ -28,3 +33,8 @@ export class AgendaPage extends React.Component<RouteComponentProps> {
     );
   }
 }
+
+export const AgendaPage = withAuthorization<Props>(
+  user => (user ? true : false),
+  routes.AUTHENTICATE
+)(AgendaPageC);

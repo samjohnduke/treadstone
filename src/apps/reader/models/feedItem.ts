@@ -1,7 +1,7 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action,  Reducer } from "../../../models/store";
+import { Action, Reducer } from "../../../models/collection";
 
 export interface IFeedItem {
   name: string;
@@ -64,7 +64,7 @@ export const FeedItemFactory = {
   fromFirebase: (doc: Doc): FeedItem => {
     return new FeedItem(doc.id, doc.ref, doc.data() as IFeedItem);
   }
-}
+};
 
 export interface FeedItemState {
   feedItems: { [key: string]: FeedItem };

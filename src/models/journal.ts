@@ -1,7 +1,8 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
+import { firestore } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "./store";
+import { Action, LiveStore, Reducer } from "./collection";
 
 export interface IJournal {
   title: string;
@@ -68,7 +69,7 @@ export const JournalFactory = {
   fromFirebase: (doc: Doc): Journal => {
     return new Journal(doc.id, doc.ref, doc.data() as IJournal);
   }
-}
+};
 
 export interface JournalState {
   journals: { [key: string]: Journal };
@@ -131,10 +132,14 @@ export const Remove = (todo: Journal): Action<Journal> => {
   };
 };
 
-export const JournalStore = new LiveStore(
-  "/journal", // collection to listen on
-  { journals: {} }, // initial state of todos
-  JournalFactory, // how to make a todo from a firebase doc
-  JournalActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+export const JournalStore = (userId: string) =>
+  new LiveStore(
+    firestore
+      .collection("users")
+      .doc(userId)
+      .collection("journal"), // collection to listen on
+    { journals: {} }, // initial state of todos
+    JournalFactory, // how to make a todo from a firebase doc
+    JournalActionCreator, // how to create update actions
+    reducer // how to change the state from A => B
+  );

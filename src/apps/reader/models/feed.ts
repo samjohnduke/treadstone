@@ -1,7 +1,8 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
+import { firestore } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "../../../models/store";
+import { Action, LiveStore, Reducer } from "../../../models/collection";
 
 export interface IFeed {
   name: string;
@@ -67,7 +68,7 @@ export const FeedFactory = {
   fromFirebase: (doc: Doc): Feed => {
     return new Feed(doc.id, doc.ref, doc.data() as IFeed);
   }
-}
+};
 
 export interface FeedState {
   feeds: { [key: string]: Feed };
@@ -127,10 +128,14 @@ export const Remove = (todo: Feed): Action<Feed> => {
   };
 };
 
-export const FeedStore = new LiveStore(
-  "/feeds", // collection to listen on
-  { feeds: {} }, // initial state of todos
-  FeedFactory, // how to make a todo from a firebase doc
-  FeedActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+export const FeedStore = (userId: string) =>
+  new LiveStore(
+    firestore
+      .collection("users")
+      .doc(userId)
+      .collection("feeds"), // collection to listen on
+    { feeds: {} }, // initial state of todos
+    FeedFactory, // how to make a todo from a firebase doc
+    FeedActionCreator, // how to create update actions
+    reducer // how to change the state from A => B
+  );

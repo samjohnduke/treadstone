@@ -1,6 +1,6 @@
 import { Record } from "immutable";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "./store";
+import { Action } from "./collection";
 
 export interface ITodo {
   color: string;
@@ -47,7 +47,7 @@ export const TodoFactory = {
   fromFirebase: (doc: Doc): Todo => {
     return new Todo(doc.data() as ITodo);
   }
-} 
+};
 
 export const TodoActionCreator: ActionCreator<Todo, Action<Todo>> = {
   added: (doc: Todo) => Add(doc),
@@ -59,9 +59,9 @@ export interface TodoState {
   todos: { [key: string]: string };
 }
 
-const reducer: Reducer<TodoState, Action<Todo>> = (state, action) => {
-  return state;
-};
+// const reducer: Reducer<TodoState, Action<Todo>> = (state, action) => {
+//   return state;
+// };
 
 export const Add = (todo: Todo): Action<Todo> => {
   return {
@@ -84,10 +84,10 @@ export const Remove = (todo: Todo): Action<Todo> => {
   };
 };
 
-export const TodoStore = new LiveStore(
-  "/todo", // collection to listen on
-  {}, // initial state of todos
-  TodoFactory, // how to make a todo from a firebase doc
-  TodoActionCreator, // how to create update actions
-  reducer // how to change the state from A => B
-);
+// export const TodoStore = new LiveStore(
+//   "/todo", // collection to listen on
+//   {}, // initial state of todos
+//   TodoFactory, // how to make a todo from a firebase doc
+//   TodoActionCreator, // how to create update actions
+//   reducer // how to change the state from A => B
+// );

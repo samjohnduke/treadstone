@@ -13,6 +13,14 @@ const ProjectContainer = styled.div`
   }
 `;
 
+const NewButton = styled.button`
+  background: #fff;
+  border: 1px solid transparent;
+  _box-shadow: 2px 2px 30px -4px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  margin-bottom: 10px;
+`;
+
 type Props = RouteComponentProps & {
   projectId: string;
   project?: Project;
@@ -40,7 +48,10 @@ class ProjectPageComponent extends React.Component<Props> {
           </p>
         </div>
         <div>
-          <h3>Tasks</h3>
+          <div>
+            <h3>Tasks</h3>
+            <NewButton>New</NewButton>
+          </div>
           <div>
             {project.tasks ? (
               <TaskList tasks={project.tasks.slice(0, 4)} />
@@ -49,6 +60,7 @@ class ProjectPageComponent extends React.Component<Props> {
         </div>
         <div>
           <h3>Files</h3>
+          <NewButton>Upload</NewButton>
           <div>{project.files ? <FileList files={project.files} /> : null}</div>
         </div>
         <div>

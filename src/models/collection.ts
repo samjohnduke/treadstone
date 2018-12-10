@@ -8,26 +8,26 @@ import {
 export class LiveStore<T extends Ref, State, Act, Inter> {
   private collection: LiveCollection<T, Inter>;
   private factory: Factory<T, Inter>;
-  private path: string;
   private store: State;
   private reducer: Reducer<State, Act>;
   private actionCreator: ActionCreator<T, Act>;
+  private query: firebase.firestore.CollectionReference;
   private cb: () => void;
 
   constructor(
-    path: string,
+    query: firebase.firestore.CollectionReference,
     initialState: State,
     factory: Factory<T, Inter>,
     actionCreator: ActionCreator<T, Act>,
     reducer: Reducer<State, Act>
   ) {
-    this.path = path;
+    this.query = query;
     this.store = initialState;
     this.factory = factory;
     this.reducer = reducer;
     this.actionCreator = actionCreator;
 
-    this.collection = new LiveCollection<T, Inter>(this.path, this.factory, {
+    this.collection = new LiveCollection<T, Inter>(this.query, this.factory, {
       added: this.added,
       modified: this.modified,
       removed: this.removed

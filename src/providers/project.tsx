@@ -9,6 +9,7 @@ interface Provi {
 export const ProjectContext = React.createContext<Provi>({ list: [], map: {} });
 
 interface InterfaceProps {
+  userId: string;
   children: React.ReactNode;
 }
 
@@ -21,12 +22,12 @@ export class ProjectProvider extends React.Component<
   InterfaceProps,
   InterfaceState
 > {
-  private pjs: typeof ProjectStore;
+  private pjs: any;
 
   constructor(props: any) {
     super(props);
 
-    this.pjs = ProjectStore;
+    this.pjs = ProjectStore(this.props.userId);
 
     this.state = {
       list: [],
