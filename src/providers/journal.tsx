@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Journal, JournalStore } from "src/models/journal";
+import { Journal, JournalStore } from "src/apps/journal/models/journal";
 
 interface Provi {
   map: { [key: string]: Journal };

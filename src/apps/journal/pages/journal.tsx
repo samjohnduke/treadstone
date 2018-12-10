@@ -1,8 +1,8 @@
 import { Link, Redirect, RouteComponentProps, Router } from "@reach/router";
 import * as React from "react";
+import { Journal } from "src/apps/journal/models/journal";
 import { ActionButton } from "src/design/actionButton";
 import { AppPage } from "src/design/appPage";
-import { Journal } from "src/models/journal";
 import { withJournalCollection } from "src/providers/journal";
 import styled from "src/styled";
 import { JournalPage } from "./journalPage";

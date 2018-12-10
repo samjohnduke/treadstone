@@ -1,7 +1,7 @@
 import { Link, RouteComponentProps } from "@reach/router";
 import * as React from "react";
+import { Journal } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
-import { Journal } from "src/models/journal";
 import { withJournal } from "src/providers/journal";
 import styled from "src/styled";
 

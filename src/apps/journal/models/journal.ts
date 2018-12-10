@@ -2,7 +2,11 @@ import * as firebase from "firebase";
 import { Record } from "immutable";
 import { firestore } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "./collection";
+import { Action, LiveStore, Reducer } from "../../../models/collection";
+
+import { collection } from "rxfire/firestore";
+
+import { map } from "rxjs/operators";
 
 export interface IJournal {
   title: string;
@@ -143,3 +147,19 @@ export const JournalStore = (userId: string) =>
     JournalActionCreator, // how to create update actions
     reducer // how to change the state from A => B
   );
+
+const collectionRef = firestore
+  .collection("users")
+  .doc("BMRvH9myrxZdrRQd82HmlJIriJy1")
+  .collection("journal");
+
+export const JournalFire = collection(collectionRef)
+  .pipe(
+    map(js => {
+      console.log(js);
+      return js.map((j: any) => JournalFactory.fromFirebase(j));
+    })
+  )
+  .subscribe(journals => {
+    console.log(journals);
+  });

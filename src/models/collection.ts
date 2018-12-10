@@ -27,11 +27,11 @@ export class LiveStore<T extends Ref, State, Act, Inter> {
     this.reducer = reducer;
     this.actionCreator = actionCreator;
 
-    this.collection = new LiveCollection<T, Inter>(this.query, this.factory, {
-      added: this.added,
-      modified: this.modified,
-      removed: this.removed
-    });
+    this.collection = new LiveCollection<T, Inter>(
+      this.query,
+      this.factory,
+      this
+    );
   }
 
   public changes = (cb: () => void) => {

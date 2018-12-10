@@ -1,7 +1,7 @@
 import * as React from "react";
+import { Journal } from "src/apps/journal/models/journal";
 import RichText from "src/components/editor";
 import { TextInput } from "src/components/textInput";
-import { Journal } from "src/models/journal";
 
 export interface EditProps {
   journal: Journal;

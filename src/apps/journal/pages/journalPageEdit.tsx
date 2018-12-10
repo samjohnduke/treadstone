@@ -1,6 +1,6 @@
 import { RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Journal } from "src/models/journal";
+import { Journal } from "src/apps/journal/models/journal";
 import { withJournal } from "src/providers/journal";
 
 import { EditJournalForm } from "src/forms/editJournal";
