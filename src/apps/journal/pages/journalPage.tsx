@@ -1,6 +1,6 @@
 import { Link, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Journal } from "src/apps/journal/models/journal";
+import { Journal, JournalDocument } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
 import { withJournal } from "src/providers/journal";
 import styled from "src/styled";
@@ -55,6 +55,13 @@ const Btn = styled(Link)`
 `;
 
 class JournalPageComponent extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    JournalDocument("BMRvH9myrxZdrRQd82HmlJIriJy1", props.journalId).subscribe(
+      s => console.log(s)
+    );
+  }
   public render() {
     const { journal } = this.props;
     return journal ? (

@@ -427,7 +427,6 @@ class RichText extends React.Component<Props> {
 
   private onKeyDown = (event: any, editor: any, next: any) => {
     let mark;
-
     if (isBoldHotkey(event)) {
       mark = "bold";
     } else if (isItalicHotkey(event)) {
@@ -436,8 +435,13 @@ class RichText extends React.Component<Props> {
       mark = "underlined";
     } else if (isCodeHotkey(event)) {
       mark = "code";
+    } else if (event.key === "ArrowLeft") {
+      return undefined;
+    } else if (event.key === "ArrowRight") {
+      return undefined;
     } else {
-      return next();
+      const out = next();
+      return out;
     }
 
     event.preventDefault();

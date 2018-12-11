@@ -4,7 +4,7 @@ import { firestore } from "src/firebase/firebase";
 import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
 import { Action, LiveStore, Reducer } from "../../../models/collection";
 
-import { collection } from "rxfire/firestore";
+import { collection, doc as DocRefChanges } from "rxfire/firestore";
 
 import { map } from "rxjs/operators";
 
@@ -148,18 +148,30 @@ export const JournalStore = (userId: string) =>
     reducer // how to change the state from A => B
   );
 
-const collectionRef = firestore
-  .collection("users")
-  .doc("BMRvH9myrxZdrRQd82HmlJIriJy1")
-  .collection("journal");
+export const JournalCollection = (userId: string) => {
+  const collectionRef = firestore
+    .collection("users")
+    .doc(userId)
+    .collection("journal");
 
-export const JournalFire = collection(collectionRef)
-  .pipe(
+  return collection(collectionRef).pipe(
     map(js => {
-      console.log(js);
       return js.map((j: any) => JournalFactory.fromFirebase(j));
     })
-  )
-  .subscribe(journals => {
-    console.log(journals);
-  });
+  );
+};
+
+export const JournalDocument = (userId: string, documentId: string) => {
+  const documentRef = firestore
+    .collection("users")
+    .doc(userId)
+    .collection("journal")
+    .doc(documentId);
+
+  return DocRefChanges(documentRef).pipe(
+    map(js => {
+      console.log(js);
+      return js;
+    })
+  );
+};
