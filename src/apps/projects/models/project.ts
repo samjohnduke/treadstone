@@ -50,6 +50,10 @@ export class Project extends ProjectRecord implements IProject, Ref {
 export const ProjectFactory = {
   fromFirebase: (doc: Doc): Project => {
     const p = doc.data();
+    if (!p) {
+      return new Project(doc.id, doc.ref, {} as IProject);
+    }
+
     if (p.tasks) {
       p.tasks = p.tasks.map((t: firebase.firestore.DocumentReference) => {
         return TaskFactory.fromRef(t);

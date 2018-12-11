@@ -171,7 +171,8 @@ export const JournalDocument = (userId: string, documentId: string) => {
   return DocRefChanges(documentRef).pipe(
     map(js => {
       console.log(js);
-      return js;
+      // return js;
+      return JournalFactory.fromFirebase(js);
     })
   );
 };

@@ -7,7 +7,6 @@ import { Page } from "src/design/page";
 import { withAuthorization } from "src/firebase/withAuthorisation";
 import { UserProps } from "src/firebase/withUser";
 import { FeedProvider } from "src/providers/feed";
-import { JournalProvider } from "src/providers/journal";
 import { ProjectProvider } from "src/providers/project";
 
 import "src/firebase/firestore";
@@ -31,7 +30,6 @@ type Props = UserProps & RouteComponentProps;
 
 export class Core extends React.Component<Props> {
   public render() {
-    console.log(this.props.user ? this.props.user.uid : undefined);
     if (!this.props.user) {
       return null;
     }
@@ -40,26 +38,28 @@ export class Core extends React.Component<Props> {
       <Page>
         <ProjectProvider userId={this.props.user.uid}>
           <FeedProvider userId={this.props.user.uid}>
-            <JournalProvider userId={this.props.user.uid}>
-              <div style={{ width: "100%" }}>
-                <AppBar />
-                <MainPage>
-                  <React.Suspense fallback={<div />}>
-                    <Router style={{ flex: 1 }}>
-                      <HomePage path="/" />
-                      <ProjectsPage path={`${routes.PROJECTS}/*`} />
-                      <AgendaPage path={`${routes.AGENDA}/*`} />
-                      <JournalsPage list={[]} path={`${routes.JOURNAL}/*`} />
-                      <StocksPage path={`${routes.STOCKS}/*`} />
-                      <BookmarksPage path={`${routes.BOOKMARKS}/*`} />
-                      <ContacsPage path={`${routes.CONTACTS}/*`} />
-                      <ReaderPage path={`${routes.FEEDS}/*`} />
-                      <ProfilePage path={`${routes.PROFILE}/*`} />
-                    </Router>
-                  </React.Suspense>
-                </MainPage>
-              </div>
-            </JournalProvider>
+            <div style={{ width: "100%" }}>
+              <AppBar />
+              <MainPage>
+                <React.Suspense fallback={<div />}>
+                  <Router style={{ flex: 1 }}>
+                    <HomePage path="/" />
+                    <ProjectsPage path={`${routes.PROJECTS}/*`} />
+                    <AgendaPage path={`${routes.AGENDA}/*`} />
+                    <JournalsPage
+                      userId={this.props.user.uid}
+                      list={[]}
+                      path={`${routes.JOURNAL}/*`}
+                    />
+                    <StocksPage path={`${routes.STOCKS}/*`} />
+                    <BookmarksPage path={`${routes.BOOKMARKS}/*`} />
+                    <ContacsPage path={`${routes.CONTACTS}/*`} />
+                    <ReaderPage path={`${routes.FEEDS}/*`} />
+                    <ProfilePage path={`${routes.PROFILE}/*`} />
+                  </Router>
+                </React.Suspense>
+              </MainPage>
+            </div>
           </FeedProvider>
         </ProjectProvider>
       </Page>

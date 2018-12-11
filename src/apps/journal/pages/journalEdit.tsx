@@ -12,7 +12,7 @@ type Props = RouteComponentProps & {
 
 class JournalPageEditComponent extends React.Component<Props> {
   public render() {
-    console.log(this.props.journal);
+    
     return this.props.journal ? (
       <div>
         <h2>Edit</h2>

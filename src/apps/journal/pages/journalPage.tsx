@@ -1,5 +1,6 @@
 import { Link, RouteComponentProps } from "@reach/router";
 import * as React from "react";
+import { Subscription } from "rxjs";
 import { Journal, JournalDocument } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
 import { withJournal } from "src/providers/journal";
@@ -23,9 +24,13 @@ const TagList = styled("ul")`
 `;
 
 type Props = RouteComponentProps & {
+  userId: string;
   journalId: string;
-  journal?: Journal;
 };
+
+interface State {
+  journal?: Journal;
+}
 
 const TitleBar = styled("div")`
   display: flex;
@@ -54,16 +59,24 @@ const Btn = styled(Link)`
   text-decoration: none;
 `;
 
-class JournalPageComponent extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
+class JournalPageComponent extends React.Component<Props, State> {
+  public state: State = {};
 
-    JournalDocument("BMRvH9myrxZdrRQd82HmlJIriJy1", props.journalId).subscribe(
-      s => console.log(s)
-    );
-  }
+  private subscription: Subscription;
+
+  public componentDidMount = () => {
+    this.subscription = JournalDocument(
+      this.props.userId,
+      this.props.journalId
+    ).subscribe(journal => this.setState({ journal }));
+  };
+
+  public componentWillUnmount = () => {
+    this.subscription.unsubscribe();
+  };
+
   public render() {
-    const { journal } = this.props;
+    const { journal } = this.state;
     return journal ? (
       <div>
         <TitleBar>

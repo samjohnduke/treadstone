@@ -10,7 +10,7 @@ export interface Factory<T, Inter> {
   fromRef?(doc: firebase.firestore.DocumentReference): Promise<T>;
 }
 
-export type Doc = firebase.firestore.QueryDocumentSnapshot;
+export type Doc = firebase.firestore.DocumentSnapshot;
 
 export interface Ref {
   key?: string;
