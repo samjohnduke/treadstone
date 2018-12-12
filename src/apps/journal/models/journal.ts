@@ -1,8 +1,7 @@
 import * as firebase from "firebase";
 import { Record } from "immutable";
 import { firestore } from "src/firebase/firebase";
-import { ActionCreator, Doc, Ref } from "src/firebase/firestore";
-import { Action, LiveStore, Reducer } from "../../../models/collection";
+import { Doc, Ref } from "src/firebase/firestore";
 
 import { collection, doc as DocRefChanges } from "rxfire/firestore";
 
@@ -75,86 +74,14 @@ export const JournalFactory = {
   }
 };
 
-export interface JournalState {
-  journals: { [key: string]: Journal };
-}
-
-export const reducer: Reducer<JournalState, Action<Journal>> = (
-  state,
-  action
-) => {
-  const nextState = { ...state };
-
-  switch (action.action) {
-    case ADD_JOURNAL:
-      nextState.journals[action.payload.key] = action.payload;
-      break;
-
-    case MODIFY_JOURNAL:
-      nextState.journals[action.payload.key] = action.payload;
-      break;
-
-    case REMOVE_JOURNAL:
-      delete nextState.journals[action.payload.key];
-      break;
-
-    default:
-      return state;
-  }
-
-  return nextState;
-};
-
-export const JournalActionCreator: ActionCreator<Journal, Action<Journal>> = {
-  added: (doc: Journal) => Add(doc),
-  modified: (doc: Journal) => Modify(doc),
-  removed: (doc: Journal) => Remove(doc)
-};
-
-const ADD_JOURNAL = "@journal/add";
-const MODIFY_JOURNAL = "@journal/modify";
-const REMOVE_JOURNAL = "@journal/remove";
-
-export const Add = (todo: Journal): Action<Journal> => {
-  return {
-    action: ADD_JOURNAL,
-    payload: todo
-  };
-};
-
-export const Modify = (todo: Journal): Action<Journal> => {
-  return {
-    action: MODIFY_JOURNAL,
-    payload: todo
-  };
-};
-
-export const Remove = (todo: Journal): Action<Journal> => {
-  return {
-    action: REMOVE_JOURNAL,
-    payload: todo
-  };
-};
-
-export const JournalStore = (userId: string) =>
-  new LiveStore(
-    firestore
-      .collection("users")
-      .doc(userId)
-      .collection("journal"), // collection to listen on
-    { journals: {} }, // initial state of todos
-    JournalFactory, // how to make a todo from a firebase doc
-    JournalActionCreator, // how to create update actions
-    reducer // how to change the state from A => B
-  );
-
 export const JournalCollection = (userId: string) => {
   const collectionRef = firestore
     .collection("users")
     .doc(userId)
-    .collection("journal");
+    .collection("journal")
+    .orderBy("createdAt", "desc");
 
-  return collection(collectionRef).pipe(
+  return collection(collectionRef!).pipe(
     map(js => {
       return js.map((j: any) => JournalFactory.fromFirebase(j));
     })
@@ -170,8 +97,6 @@ export const JournalDocument = (userId: string, documentId: string) => {
 
   return DocRefChanges(documentRef).pipe(
     map(js => {
-      console.log(js);
-      // return js;
       return JournalFactory.fromFirebase(js);
     })
   );

@@ -34,7 +34,7 @@ export class ListElement extends React.Component<ListElementProps> {
           }
         >
           <div>{journal.title}</div>
-          <div>{journal.createdAt.toDate().toISOString()}</div>
+          <div>{journal.createdAtDate()}</div>
         </Item>
       </>
     );

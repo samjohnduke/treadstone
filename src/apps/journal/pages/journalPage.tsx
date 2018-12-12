@@ -3,8 +3,8 @@ import * as React from "react";
 import { Subscription } from "rxjs";
 import { Journal, JournalDocument } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
-import { withJournal } from "src/providers/journal";
 import styled from "src/styled";
+import { Container } from "../components/container";
 
 const TagList = styled("ul")`
   margin: 0;
@@ -78,7 +78,7 @@ class JournalPageComponent extends React.Component<Props, State> {
   public render() {
     const { journal } = this.state;
     return journal ? (
-      <div>
+      <Container>
         <TitleBar>
           <h2>{journal.title}</h2>
           <Btn to="edit">edit</Btn>
@@ -97,9 +97,9 @@ class JournalPageComponent extends React.Component<Props, State> {
             readOnly={true}
           />
         </div>
-      </div>
+      </Container>
     ) : null;
   }
 }
 
-export const JournalPage = withJournal(JournalPageComponent);
+export const JournalPage = JournalPageComponent;

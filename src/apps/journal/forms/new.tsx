@@ -8,7 +8,7 @@ import RichText from "src/components/editor";
 import { TextInput } from "src/components/textInput";
 import { Alert } from "src/design/alert";
 import { Button } from "src/design/button";
-import { firestore } from "../firebase/firebase";
+import { firestore } from "../../../firebase/firebase";
 
 interface FormValues {
   title: string;

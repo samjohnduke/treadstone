@@ -26,7 +26,7 @@ class JournalsPageComponent extends React.Component<Props> {
             path=":journalId"
           />
           <JournalPageEdit
-            // userId={this.props.userId}
+            userId={this.props.userId}
             journalId=""
             path=":journalId/edit"
           />
