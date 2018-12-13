@@ -12,9 +12,9 @@ interface InterfaceState {
   list: Journal[];
 }
 
-export const withAuthentication = (Component: any) => {
-  class WithAuthentication extends React.Component<
-    InterfaceProps,
+export function withJournalProvider<T>(Component: React.ComponentType<T>) {
+  class WithJournalProvider extends React.Component<
+    T & InterfaceProps,
     InterfaceState
   > {
     private subscription: Subscription;
@@ -28,14 +28,19 @@ export const withAuthentication = (Component: any) => {
     }
 
     public componentDidMount = () => {
-      this.subscription = JournalCollection(this.props.userId).subscribe(list =>
-        this.setState({ list })
-      );
+      if (this.props.userId && !this.subscription) {
+        this.subscription = JournalCollection(this.props.userId).subscribe(
+          list => {
+            return this.setState({ list });
+          }
+        );
+      }
     };
 
     public componentWillUnmount = () => {
       this.subscription.unsubscribe();
     };
+
     public render() {
       const { list } = this.state;
 
@@ -46,5 +51,5 @@ export const withAuthentication = (Component: any) => {
       );
     }
   }
-  return WithAuthentication;
-};
+  return WithJournalProvider;
+}

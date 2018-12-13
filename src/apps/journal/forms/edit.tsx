@@ -32,21 +32,18 @@ export class EditJournalForm extends React.Component<EditProps, EditState> {
     }, 1000);
 
     setInterval(() => {
-      this.props.journal.ref.update({
-        content: this.state.content,
-        tags: this.state.tags.split(",").map(t => t.trim())
-      });
+      if (this.props.journal.content !== this.state.content) {
+        this.props.journal.ref.update({
+          content: this.state.content,
+          tags: this.state.tags.split(",").map(t => t.trim())
+        });
+      }
     }, 3000);
   }
 
   public render() {
     return (
       <div>
-        {this.props.journal.content !== this.state.content ? (
-          <p>Dirty</p>
-        ) : (
-          <p>Clean</p>
-        )}
         <TextInput
           key="jtitle"
           label="Title"
@@ -79,7 +76,6 @@ export class EditJournalForm extends React.Component<EditProps, EditState> {
           <RichText
             key="jcontent"
             onChange={v => {
-              console.log(v);
               this.setState({
                 content: v
               });

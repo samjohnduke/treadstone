@@ -33,7 +33,7 @@ export class ListElement extends React.Component<ListElementProps> {
             e.key === "Enter" ? navigate(`journal/${journal.key}`) : null
           }
         >
-          <div>{journal.title}</div>
+          <div style={{ flex: 1 }}>{journal.title}</div>
           <div>{journal.createdAtDate()}</div>
         </Item>
       </>

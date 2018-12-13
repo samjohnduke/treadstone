@@ -61,6 +61,13 @@ class InnerForm extends React.Component<
 
         <div>
           <Button
+            style={{ background: "#444", color: "#fff", marginRight: 20 }}
+            type="button"
+            onClick={() => window.history.go(-1)}
+          >
+            Back
+          </Button>
+          <Button
             type="submit"
             disabled={this.props.isSubmitting || !this.props.isValid}
           >

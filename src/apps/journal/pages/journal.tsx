@@ -4,6 +4,7 @@ import { Journal } from "src/apps/journal/models/journal";
 
 import { AppPage } from "src/design/appPage";
 
+import { withJournalProvider } from "../provider";
 import { JournalPageEdit } from "./journalEdit";
 import { JournalPage } from "./journalPage";
 import { JournalListPage } from "./journals";
@@ -20,21 +21,13 @@ class JournalsPageComponent extends React.Component<Props> {
       <AppPage>
         <Router style={{ flex: 1 }}>
           <NewJournalPage path="new" />
-          <JournalPage
-            userId={this.props.userId}
-            journalId=""
-            path=":journalId"
-          />
-          <JournalPageEdit
-            userId={this.props.userId}
-            journalId=""
-            path=":journalId/edit"
-          />
-          <JournalListPage userId={this.props.userId} path="" default={true} />
+          <JournalPage journalId="" path=":journalId" />
+          <JournalPageEdit journalId="" path=":journalId/edit" />
+          <JournalListPage path="" journals={[]} default={true} />
         </Router>
       </AppPage>
     );
   }
 }
 
-export const JournalsPage = JournalsPageComponent;
+export const JournalsPage = withJournalProvider<Props>(JournalsPageComponent);

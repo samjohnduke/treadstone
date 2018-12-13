@@ -1,10 +1,11 @@
 import { Link, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Subscription } from "rxjs";
-import { Journal, JournalDocument } from "src/apps/journal/models/journal";
+import { Journal } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
+import { Button } from "src/design/button";
 import styled from "src/styled";
 import { Container } from "../components/container";
+import { withJournal } from "../withJournal";
 
 const TagList = styled("ul")`
   margin: 0;
@@ -24,13 +25,9 @@ const TagList = styled("ul")`
 `;
 
 type Props = RouteComponentProps & {
-  userId: string;
   journalId: string;
-};
-
-interface State {
   journal?: Journal;
-}
+};
 
 const TitleBar = styled("div")`
   display: flex;
@@ -59,26 +56,14 @@ const Btn = styled(Link)`
   text-decoration: none;
 `;
 
-class JournalPageComponent extends React.Component<Props, State> {
-  public state: State = {};
-
-  private subscription: Subscription;
-
-  public componentDidMount = () => {
-    this.subscription = JournalDocument(
-      this.props.userId,
-      this.props.journalId
-    ).subscribe(journal => this.setState({ journal }));
-  };
-
-  public componentWillUnmount = () => {
-    this.subscription.unsubscribe();
-  };
-
+class JournalPageComponent extends React.Component<Props> {
   public render() {
-    const { journal } = this.state;
+    const { journal } = this.props;
     return journal ? (
       <Container>
+        <TitleBar>
+          <Button onClick={() => window.history.go(-1)}>Back</Button>
+        </TitleBar>
         <TitleBar>
           <h2>{journal.title}</h2>
           <Btn to="edit">edit</Btn>
@@ -102,4 +87,4 @@ class JournalPageComponent extends React.Component<Props, State> {
   }
 }
 
-export const JournalPage = JournalPageComponent;
+export const JournalPage = withJournal<Props>(JournalPageComponent);

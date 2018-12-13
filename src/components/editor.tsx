@@ -196,6 +196,7 @@ class RichText extends React.Component<Props> {
 
   constructor(props: { value: string }) {
     super(props);
+
     this.state = {
       serial: props.value,
       value: html.deserialize(props.value)
@@ -239,13 +240,6 @@ class RichText extends React.Component<Props> {
   public ref = (editor: Editor) => {
     this.editor = editor as any;
   };
-
-  public shouldComponentUpdate(nextProps: { value: string }) {
-    if (nextProps.value === this.state.serial) {
-      return false;
-    }
-    return true;
-  }
 
   /**
    * Render.
@@ -414,6 +408,8 @@ class RichText extends React.Component<Props> {
         this.props.onChange(str);
       }
       this.setState({ serial: str, value });
+    } else {
+      this.setState({ value });
     }
   };
 

@@ -1,18 +1,14 @@
 import { Link, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Subscription } from "rxjs";
 import { ActionButton } from "src/design/actionButton";
 import styled from "src/styled";
 import { JournalList } from "../collections/journalsList";
-import { Journal, JournalCollection } from "../models/journal";
+import { Journal } from "../models/journal";
+import { withJournals } from "../withJournals";
 
 type Props = RouteComponentProps & {
-  userId: string;
+  journals: Journal[];
 };
-
-interface State {
-  list: Journal[];
-}
 
 const List = styled("div")`
   margin-top: 10px;
@@ -27,23 +23,7 @@ const Container = styled("div")`
   }
 `;
 
-export class JournalListPage extends React.Component<Props, State> {
-  public state: State = {
-    list: []
-  };
-
-  private subscription: Subscription;
-
-  public componentDidMount = () => {
-    this.subscription = JournalCollection(this.props.userId).subscribe(list =>
-      this.setState({ list })
-    );
-  };
-
-  public componentWillUnmount = () => {
-    this.subscription.unsubscribe();
-  };
-
+export class JournalListPageComponent extends React.Component<Props> {
   public render() {
     return (
       <Container>
@@ -58,7 +38,7 @@ export class JournalListPage extends React.Component<Props, State> {
               maxWidth: 800
             }}
           >
-            <h2 style={{ flex: 1 }}>Journals</h2>
+            <h2 style={{ flex: 1 }}>My Journal</h2>
             <div style={{ flex: "0 100px" }}>
               <ActionButton
                 style={{ display: "block", textDecoration: "none" }}
@@ -77,9 +57,11 @@ export class JournalListPage extends React.Component<Props, State> {
           </div>
         </div>
         <List>
-          <JournalList list={this.state.list} />
+          <JournalList list={this.props.journals} />
         </List>
       </Container>
     );
   }
 }
+
+export const JournalListPage = withJournals<Props>(JournalListPageComponent);
