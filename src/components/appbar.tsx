@@ -80,7 +80,7 @@ const Bar = styled("div")`
 `;
 
 const Left = styled("div")`
-  flex: 0;
+  flex: 0 150px;
   padding: 0 20px 0 0;
   align-items: flex-start;
   justify-content: flex-start;
@@ -98,6 +98,7 @@ const Left = styled("div")`
 `;
 
 const Right = styled("div")`
+  flex: 0 150px;
   padding: 0 0 0 30px;
   display: flex;
   align-items: flex-end;

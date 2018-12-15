@@ -15,7 +15,9 @@ class JournalPageEditComponent extends React.Component<Props> {
     const { journal } = this.props;
     return journal ? (
       <Container>
-        <h2>Edit</h2>
+        <a href="#" onClick={() => window.history.go(-1)}>
+          Back
+        </a>
         <EditJournalForm journal={journal} />
       </Container>
     ) : null;

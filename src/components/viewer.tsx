@@ -6,10 +6,18 @@ import Html from "slate-html-serializer";
 import * as React from "react";
 import styled from "src/styled";
 
-export const TreadstoneEditor = styled("div")`
-`;
+export const TreadstoneEditor = styled("div")``;
 
 export const InnerEditor = styled(Editor)`
+  font-size: 18px;
+
+  & h2 {
+    font-size: 1.6em;
+  }
+
+  & h3 {
+    font-size: 1.3em;
+  }
 `;
 
 const BLOCK_TAGS = {
@@ -114,7 +122,10 @@ const html = new Html({ rules });
  * @type {Component}
  */
 
-class RichTextView extends React.Component<{ value: string, readOnly?: boolean }> {
+class RichTextView extends React.Component<{
+  value: string;
+  readOnly?: boolean;
+}> {
   /**
    * Deserialize the initial editor value.
    *
@@ -179,7 +190,7 @@ class RichTextView extends React.Component<{ value: string, readOnly?: boolean }
    */
 
   public render() {
-    console.log()
+    console.log();
     return (
       <TreadstoneEditor>
         <InnerEditor
@@ -204,6 +215,8 @@ class RichTextView extends React.Component<{ value: string, readOnly?: boolean }
     const { attributes, children, node } = props;
 
     switch (node.type) {
+      case "paragraph":
+        return <p>{children}</p>;
       case "quote":
         return <blockquote {...attributes}>{children}</blockquote>;
       case "bulleted-list":

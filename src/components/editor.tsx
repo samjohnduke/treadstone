@@ -15,6 +15,16 @@ export const InnerEditor = styled(Editor)`
   padding: 20px;
   background: #fff;
   box-shadow: 3px 3px 15px -2px rgba(0, 0, 0, 0.1);
+
+  font-size: 18px;
+
+  & h2 {
+    font-size: 1.6em;
+  }
+
+  & h3 {
+    font-size: 1.3em;
+  }
 `;
 
 export const Button = styled("span")<{ active: boolean }>`
@@ -348,6 +358,8 @@ class RichText extends React.Component<Props> {
     switch (node.type) {
       case "quote":
         return <blockquote {...attributes}>{children}</blockquote>;
+      case "paragraph":
+        return <p>{children}</p>;
       case "bulleted-list":
         return <ul {...attributes}>{children}</ul>;
       case "heading-one":
