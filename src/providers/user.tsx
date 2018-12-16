@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import { LiveDocument } from "src/models/document";
+import { doc } from "rxfire/firestore";
+import { Subscription } from "rxjs";
+import { firestore } from "src/firebase/firebase";
 import { User } from "src/models/user";
 
 interface Provi {
@@ -10,16 +12,16 @@ interface Provi {
 export const UserContext = React.createContext<Provi>({ user: undefined });
 
 interface InterfaceProps {
+  userId: string;
   children: React.ReactNode;
 }
 
 export class UserProvider extends React.Component<InterfaceProps, Provi> {
-  private us: LiveDocument<{ user: User | undefined }>;
+  public state: Provi;
+  private sub: Subscription;
 
   constructor(props: any) {
     super(props);
-
-    this.us = new LiveDocument({ user: undefined });
 
     this.state = {
       user: undefined
@@ -27,15 +29,16 @@ export class UserProvider extends React.Component<InterfaceProps, Provi> {
   }
 
   public componentDidMount() {
-    // this.us.changes(() =>
-    //   this.setState({
-    //     user: this.us.getState().user
-    //   })
-    // );
+    const documentRef = firestore.collection("users").doc(this.props.userId);
+
+    this.sub = doc(documentRef).subscribe(u => {
+      const user = new User(u.id, u.ref, u.data() as any);
+      this.setState({ user });
+    });
   }
 
   public componentWillUnmount() {
-    this.us.close();
+    this.sub.unsubscribe();
   }
 
   public render() {

@@ -12,6 +12,11 @@ type Props = RouteComponentProps & {
 
 const List = styled("div")`
   margin-top: 10px;
+
+  @media (max-width: 800px) {
+    flex: 1;
+    padding: 0 20px;
+  }
 `;
 
 const Container = styled("div")`
@@ -27,7 +32,7 @@ export class JournalListPageComponent extends React.Component<Props> {
   public render() {
     return (
       <Container>
-        <div style={{ display: "flex", flex: 1, padding: 10 }}>
+        <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
           <div
             style={{
               alignItems: "center",
@@ -38,7 +43,7 @@ export class JournalListPageComponent extends React.Component<Props> {
               maxWidth: 800
             }}
           >
-            <h2 style={{ flex: 1 }}>My Journal</h2>
+            <h2 style={{ flex: 1, fontSize: "2em" }}>My Journal</h2>
             <div style={{ flex: "0 100px" }}>
               <ActionButton
                 style={{ display: "block", textDecoration: "none" }}

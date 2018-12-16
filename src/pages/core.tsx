@@ -16,15 +16,16 @@ import { ContacsPage } from "../apps/contacts/pages/contacts";
 import { AgendaPage } from "../apps/diary/pages/agenda";
 import { HomePage } from "./app";
 
-import { JournalsPage } from "../apps/journal/pages/journal";
-
 import { ReaderPage } from "../apps/reader/pages/reader";
 import { StocksPage } from "../apps/stocks/pages/stocks";
 
 import { MainPage } from "src/design/mainPage";
 import { ProfilePage } from "./profile";
 
+import { UserProvider } from "src/providers/user";
+
 const ProjectsPage = React.lazy(() => import("src/apps/projects"));
+const JournalsPage = React.lazy(() => import("src/apps/journal"));
 
 type Props = UserProps & RouteComponentProps;
 
@@ -39,26 +40,28 @@ export class Core extends React.Component<Props> {
         <ProjectProvider userId={this.props.user.uid}>
           <FeedProvider userId={this.props.user.uid}>
             <div style={{ width: "100%" }}>
-              <AppBar />
-              <MainPage>
-                <React.Suspense fallback={<div />}>
-                  <Router style={{ flex: 1 }}>
-                    <HomePage path="/" />
-                    <ProjectsPage path={`${routes.PROJECTS}/*`} />
-                    <AgendaPage path={`${routes.AGENDA}/*`} />
-                    <JournalsPage
-                      userId={this.props.user.uid}
-                      list={[]}
-                      path={`${routes.JOURNAL}/*`}
-                    />
-                    <StocksPage path={`${routes.STOCKS}/*`} />
-                    <BookmarksPage path={`${routes.BOOKMARKS}/*`} />
-                    <ContacsPage path={`${routes.CONTACTS}/*`} />
-                    <ReaderPage path={`${routes.FEEDS}/*`} />
-                    <ProfilePage path={`${routes.PROFILE}/*`} />
-                  </Router>
-                </React.Suspense>
-              </MainPage>
+              <UserProvider userId={this.props.user.uid}>
+                <AppBar user={undefined} />
+                <MainPage>
+                  <React.Suspense fallback={<div />}>
+                    <Router style={{ flex: 1 }}>
+                      <HomePage path="/" />
+                      <ProjectsPage path={`${routes.PROJECTS}/*`} />
+                      <AgendaPage path={`${routes.AGENDA}/*`} />
+                      <JournalsPage
+                        userId={this.props.user.uid}
+                        list={[]}
+                        path={`${routes.JOURNAL}/*`}
+                      />
+                      <StocksPage path={`${routes.STOCKS}/*`} />
+                      <BookmarksPage path={`${routes.BOOKMARKS}/*`} />
+                      <ContacsPage path={`${routes.CONTACTS}/*`} />
+                      <ReaderPage path={`${routes.FEEDS}/*`} />
+                      <ProfilePage path={`${routes.PROFILE}/*`} />
+                    </Router>
+                  </React.Suspense>
+                </MainPage>
+              </UserProvider>
             </div>
           </FeedProvider>
         </ProjectProvider>

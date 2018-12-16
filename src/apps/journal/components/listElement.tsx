@@ -6,7 +6,7 @@ import { Journal } from "../models/journal";
 const Item = styled.li`
   background: #fff;
   display: flex;
-  padding: 10px;
+  padding: 15px;
   box-shadow: 2px 2px 30px -4px rgba(0, 0, 0, 0.1);
   align-items: center;
   cursor: pointer;
@@ -33,7 +33,7 @@ export class ListElement extends React.Component<ListElementProps> {
             e.key === "Enter" ? navigate(`journal/${journal.key}`) : null
           }
         >
-          <div style={{ flex: 1 }}>{journal.title}</div>
+          <div style={{ flex: 1, fontSize: "1.1em" }}>{journal.title}</div>
           <div>{journal.createdAtDate()}</div>
         </Item>
       </>

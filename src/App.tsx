@@ -17,8 +17,6 @@ import "src/models/todo";
 import { ThemeProvider } from "./styled";
 import { DefaultTheme } from "./theme";
 
-import { UserProvider } from "./providers/user";
-
 const CorePage = React.lazy(() => import("./pages/core"));
 
 class App extends React.Component {
@@ -29,21 +27,19 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <UserProvider>
-          <ThemeProvider theme={DefaultTheme}>
-            <React.Suspense fallback={<div />}>
-              <Router>
-                <AuthPage path={Routes.AUTHENTICATE} />
-                <RegisterPage path={Routes.REGISTER} />
-                <ForgotPasswordPage path={Routes.FORGOTTEN_PASSWORD} />
-                <AboutPage path={Routes.ABOUT} />
-                <PricingPage path={Routes.PRICING} />
-                <CorePage path={`${Routes.APP}/*`} />
-                <HomePage path={Routes.HOME} />
-              </Router>
-            </React.Suspense>
-          </ThemeProvider>
-        </UserProvider>
+        <ThemeProvider theme={DefaultTheme}>
+          <React.Suspense fallback={<div />}>
+            <Router>
+              <AuthPage path={Routes.AUTHENTICATE} />
+              <RegisterPage path={Routes.REGISTER} />
+              <ForgotPasswordPage path={Routes.FORGOTTEN_PASSWORD} />
+              <AboutPage path={Routes.ABOUT} />
+              <PricingPage path={Routes.PRICING} />
+              <CorePage path={`${Routes.APP}/*`} />
+              <HomePage path={Routes.HOME} />
+            </Router>
+          </React.Suspense>
+        </ThemeProvider>
       </div>
     );
   }

@@ -29,6 +29,10 @@ const Meta = styled("div")`
   display: flex;
   color: #888;
   padding: 5px 0 25px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 const TagList = styled("div")``;
@@ -44,13 +48,15 @@ type Props = RouteComponentProps & {
 
 const TitleBar = styled("div")`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  width: 100%;
 
   & h1 {
     font-size: 2.3em;
     margin-right: 20px;
     color: #111;
     margin-bottom: 5px;
+    margin-top: 5px;
   }
 
   & a {
@@ -59,26 +65,31 @@ const TitleBar = styled("div")`
 `;
 
 const ButtonBar = styled.div`
-  /* position: absolute;
-  right: calc(100% + 30px);
-  top: 20px; */
   text-align: right;
   flex: 0 200px;
   display: flex;
   margin-top: 10px;
-  justify-content: flex-end;
 
   & a {
-    font-size: 1em;
-    display: block;
-    background: blue;
-    color: #fff;
-    text-align: center;
-    padding: 8px 20px;
-    margin: 0 0 10px 0;
-    border-radius: 20px;
     text-decoration: none;
-    margin-right: 10px;
+  }
+
+  @media (max-width: 800px) {
+    flex: 1;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+`;
+
+const ButtonBarTop = styled.div`
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-start;
+
+  & a {
+    text-decoration: none;
+    color: #333;
   }
 `;
 
@@ -87,6 +98,10 @@ const TopContainer = styled("div")`
   align-items: center;
   border-bottom: 1px solid #ccc;
   margin-bottom: 30px;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 class JournalPageComponent extends React.Component<Props> {
@@ -94,14 +109,14 @@ class JournalPageComponent extends React.Component<Props> {
     const { journal } = this.props;
     return journal ? (
       <Container>
-        {/* <ButtonBar>
+        <ButtonBarTop>
           <a href="#" onClick={() => window.history.go(-1)}>
             Back
           </a>
-        </ButtonBar> */}
+        </ButtonBarTop>
 
         <TopContainer>
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, width: "100%" }}>
             <TitleBar>
               <h1>{journal.title}</h1>
             </TitleBar>
@@ -119,7 +134,7 @@ class JournalPageComponent extends React.Component<Props> {
           </div>
           <ButtonBar>
             <ActionButton as={Link} to="edit">
-              edit
+              Edit
             </ActionButton>
           </ButtonBar>
         </TopContainer>

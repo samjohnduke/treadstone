@@ -13,6 +13,8 @@ import {
 } from "@reach/menu-button";
 
 import "@reach/menu-button/styles.css";
+import { User } from "src/models/user";
+import { withUser } from "src/providers/user";
 
 const Bar = styled("div")`
   width: 100%;
@@ -81,7 +83,7 @@ const Bar = styled("div")`
 
 const Left = styled("div")`
   flex: 0 150px;
-  padding: 0 20px 0 0;
+  padding: 0 10px 0 0;
   align-items: flex-start;
   justify-content: flex-start;
 
@@ -99,16 +101,23 @@ const Left = styled("div")`
 
 const Right = styled("div")`
   flex: 0 150px;
-  padding: 0 0 0 30px;
+  padding: 0 0 0 10px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  @media (max-width: 450px) {
+    flex: 1;
+  }
 `;
 
 const Center = styled("div")`
   flex: 1;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 // const ExitButton = styled("button")`
@@ -134,8 +143,12 @@ const StyledMenuList = styled(MenuList)`
   }
 `;
 
-export class AppBar extends React.Component {
+interface Props {
+  user: User | undefined;
+}
+export class AppBarComponent extends React.Component<Props> {
   public render() {
+    const { user } = this.props;
     return (
       <Bar>
         <div className="inner">
@@ -147,7 +160,12 @@ export class AppBar extends React.Component {
 
           <Center>
             <input
-              style={{ display: "block", width: "500px", margin: "auto" }}
+              style={{
+                display: "block",
+                margin: "auto",
+                maxWidth: "500px",
+                width: "100%"
+              }}
               type="text"
               placeholder="Search"
             />
@@ -155,7 +173,20 @@ export class AppBar extends React.Component {
 
           <Right>
             <Menu style={{ zIndex: 10000 }}>
-              <MenuButton>Actions</MenuButton>
+              <MenuButton
+                style={{
+                  background: "none",
+                  border: "none",
+                  borderRadius: 20,
+                  height: 35,
+                  width: 35
+                }}
+              >
+                <img
+                  src={user ? user.profileUrl : ""}
+                  style={{ width: 35, height: 35, borderRadius: 20 }}
+                />
+              </MenuButton>
               <StyledMenuList>
                 <MenuLink to="profile">My Profile</MenuLink>
                 <MenuItem onSelect={doSignOut}>Logout</MenuItem>
@@ -167,3 +198,5 @@ export class AppBar extends React.Component {
     );
   }
 }
+
+export const AppBar = withUser<Props>(AppBarComponent);
