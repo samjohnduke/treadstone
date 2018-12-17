@@ -177,9 +177,7 @@ export class AppBarComponent extends React.Component<Props> {
                 style={{
                   background: "none",
                   border: "none",
-                  borderRadius: 20,
-                  height: 35,
-                  width: 35
+                  borderRadius: 20
                 }}
               >
                 <img
