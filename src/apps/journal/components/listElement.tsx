@@ -1,6 +1,7 @@
 import { navigate } from "@reach/router";
 import * as React from "react";
 import styled from "src/styled";
+import book from "../images/book.png";
 import { Journal } from "../models/journal";
 
 const Item = styled.li`
@@ -14,6 +15,17 @@ const Item = styled.li`
   & input {
     flex: 0;
     margin: 10px 15px;
+  }
+
+  & img {
+    display: block;
+    /* width: 40px; */
+    padding: 10px;
+    height: 80px;
+    width: 80px;
+    background: #eee;
+    margin: -15px 15px -15px -15px;
+    filter: grayscale(0.9);
   }
 `;
 
@@ -33,6 +45,7 @@ export class ListElement extends React.Component<ListElementProps> {
             e.key === "Enter" ? navigate(`journal/${journal.key}`) : null
           }
         >
+          <img src={book} />
           <div style={{ flex: 1, fontSize: "1.1em" }}>{journal.title}</div>
           <div>{journal.createdAtDate()}</div>
         </Item>
