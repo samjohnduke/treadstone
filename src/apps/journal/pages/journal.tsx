@@ -19,7 +19,7 @@ class JournalsPageComponent extends React.Component<Props> {
   public render() {
     return (
       <AppPage>
-        <Router style={{ flex: 1 }}>
+        <Router primary={false} style={{ flex: 1 }}>
           <NewJournalPage path="new" />
           <JournalPage journalId="" path=":journalId" />
           <JournalPageEdit journalId="" path=":journalId/edit" />

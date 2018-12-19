@@ -15,7 +15,7 @@ const List = styled("div")`
 
   @media (max-width: 800px) {
     flex: 1;
-    padding: 0 20px;
+    padding: 0 10px;
   }
 `;
 
@@ -25,6 +25,10 @@ const Container = styled("div")`
   & > ${List} {
     max-width: 800px;
     margin: 30px auto;
+
+    @media (max-width: 800px) {
+      margin: 10px auto;
+    }
   }
 `;
 
@@ -32,7 +36,7 @@ export class JournalListPageComponent extends React.Component<Props> {
   public render() {
     return (
       <Container>
-        <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
+        <div style={{ display: "flex", flex: 1, padding: "10px 10px" }}>
           <div
             style={{
               alignItems: "center",

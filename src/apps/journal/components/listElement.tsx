@@ -46,7 +46,18 @@ export class ListElement extends React.Component<ListElementProps> {
           }
         >
           <img src={book} />
-          <div style={{ flex: 1, fontSize: "1.1em" }}>{journal.title}</div>
+          <div
+            style={{
+              WebkitLineClamp: 3,
+              display: "flex",
+              flex: "1 40px",
+              fontSize: "1.1em",
+              overflow: "hidden",
+              width: "40flexboxpx"
+            }}
+          >
+            {journal.title}
+          </div>
           <div>{journal.createdAtDate()}</div>
         </Item>
       </>
