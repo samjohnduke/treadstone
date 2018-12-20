@@ -60,18 +60,6 @@ export class EditJournalForm extends React.Component<EditProps, EditState> {
             });
           }}
         />
-        <TextInput
-          key="jtags"
-          label="Tags"
-          name="tags"
-          type="text"
-          value={this.state.tags}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            this.setState({
-              tags: e.target.value
-            });
-          }}
-        />
         <div style={{ minHeight: "400px", width: "100%" }}>
           <RichText
             key="jcontent"

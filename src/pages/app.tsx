@@ -61,14 +61,16 @@ export class HomePage extends React.Component<RouteComponentProps> {
 
     return (
       <AppPage>
-        <div style={{ width: "100%" }}>
+        <div
+          style={{ width: "100%", display: "flex", flexDirection: "column" }}
+        >
           <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
-            <div style={{ flex: "1 1 800px", maxWidth: 800, margin: "0 auto" }}>
+            <div style={{ flex: "1", margin: "0 auto" }}>
               <h2 style={{ fontSize: "2em" }}>{title}</h2>
             </div>
           </div>
           <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
-            <div style={{ flex: "1 1 800px", maxWidth: 800, margin: "0 auto" }}>
+            <div style={{ flex: "1", margin: "0 auto" }}>
               <h3>Recent Apps</h3>
               <AppList>
                 <li>
@@ -99,7 +101,7 @@ export class HomePage extends React.Component<RouteComponentProps> {
             </div>
           </div>
           <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
-            <div style={{ flex: "1 1 800px", maxWidth: 800, margin: "0 auto" }}>
+            <div style={{ flex: "1", maxWidth: 800, margin: "0 auto" }}>
               <h3>Recent Activity</h3>
               <p>Nothing has happened recently.</p>
             </div>

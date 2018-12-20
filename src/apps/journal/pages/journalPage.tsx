@@ -3,6 +3,7 @@ import * as React from "react";
 import { Journal } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
 import styled from "src/styled";
+import { ActionBar } from "../components/actionBar";
 import { Container } from "../components/container";
 import { withJournal } from "../withJournal";
 
@@ -45,55 +46,6 @@ const TitleBar = styled("div")`
   }
 `;
 
-const ButtonBarTop = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  background: transparent;
-  padding: 10px 20px;
-  margin: 0 -10px 20px;
-
-  & a {
-    text-decoration: none;
-    color: #333;
-    border-radius: 4px;
-    background: #eee;
-    border: 1px solid #aaa;
-    padding: 4px;
-    line-height: 20px;
-    margin-right: 10px;
-    width: 50px;
-    text-align: center;
-
-    & .material-icons {
-      font-size: 18px;
-      line-height: 20px;
-      vertical-align: top;
-    }
-
-    & span {
-      display: none;
-      vertical-align: top;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-
-  & .left {
-    flex: 1;
-    display: flex;
-  }
-
-  & .right {
-    display: flex;
-  }
-
-  @media (max-width: 800px) {
-    background: #fff;
-  }
-`;
-
 const TopContainer = styled("div")`
   display: flex;
   align-items: center;
@@ -110,7 +62,7 @@ class JournalPageComponent extends React.Component<Props> {
     const { journal } = this.props;
     return journal ? (
       <Container>
-        <ButtonBarTop>
+        <ActionBar>
           <div className="left">
             <a href="#" onClick={() => window.history.go(-1)}>
               <i className="material-icons">keyboard_backspace</i>
@@ -129,7 +81,7 @@ class JournalPageComponent extends React.Component<Props> {
               <span>Trash</span>
             </Link>
           </div>
-        </ButtonBarTop>
+        </ActionBar>
 
         <TopContainer>
           <div style={{ flex: 1, width: "100%" }}>

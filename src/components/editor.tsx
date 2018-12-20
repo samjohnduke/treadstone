@@ -11,10 +11,10 @@ import { isKeyHotkey } from "is-hotkey";
 export const TreadstoneEditor = styled("div")``;
 
 export const InnerEditor = styled(Editor)`
-  margin-top: 10px;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 3px 3px 15px -2px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  padding: 20px 5px;
+  /* background: #fff;
+  box-shadow: 3px 3px 15px -2px rgba(0, 0, 0, 0.1); */
 
   font-size: 18px;
 
