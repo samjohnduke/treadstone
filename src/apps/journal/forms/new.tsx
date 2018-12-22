@@ -2,7 +2,7 @@ import { navigate } from "@reach/router";
 import { InjectedFormikProps, withFormik } from "formik";
 import * as React from "react";
 
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 
 import RichText from "src/components/editor";
 import { TextInput } from "src/components/textInput";
@@ -41,17 +41,6 @@ class InnerForm extends React.Component<
           touched={this.props.touched.title}
         />
 
-        <TextInput
-          label="Tags"
-          name="tags"
-          type="text"
-          value={this.props.values.tags}
-          onChange={this.props.handleChange}
-          onBlur={this.props.handleBlur}
-          errors={this.props.errors.tags}
-          touched={this.props.touched.tags}
-        />
-
         <div style={{ padding: "0 0 20px", width: "100%" }}>
           <RichText
             onChange={v => this.props.setFieldValue("content", v)}
@@ -61,17 +50,10 @@ class InnerForm extends React.Component<
 
         <div>
           <Button
-            style={{ background: "#444", color: "#fff", marginRight: 20 }}
-            type="button"
-            onClick={() => window.history.go(-1)}
-          >
-            Back
-          </Button>
-          <Button
             type="submit"
             disabled={this.props.isSubmitting || !this.props.isValid}
           >
-            Go
+            Create
           </Button>
         </div>
       </form>

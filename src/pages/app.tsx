@@ -3,12 +3,12 @@ import * as React from "react";
 import { AppPage } from "src/design/appPage";
 
 import {
-  AGENDA,
+  // AGENDA,
   // BOOKMARKS,
   // CONTACTS,
-  FEEDS,
-  JOURNAL,
-  PROJECTS
+  // FEEDS,
+  JOURNAL
+  // PROJECTS
   // STOCKS,
 } from "src/constants/routes";
 import styled from "src/styled";
@@ -21,7 +21,8 @@ const AppList = styled("ul")`
   width: 100%;
   flex: 1;
 
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 100px);
+  grid-gap: 10px;
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr 1fr 1fr;
@@ -93,30 +94,30 @@ export class HomePage extends React.Component<RouteComponentProps> {
             <div>
               <h3>Recent Apps</h3>
               <AppList>
-                <li>
+                {/* <li>
                   <Link to={PROJECTS}>
                     <i className="material-icons">domain</i>
                     <span>Projects</span>
                   </Link>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <Link to={AGENDA}>
                     <i className="material-icons">calendar_today</i>
                     <span>Agenda</span>
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to={JOURNAL}>
                     <i className="material-icons">book</i>
                     <span>Journal</span>
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to={FEEDS}>
                     <i className="material-icons">rss_feed</i>
                     <span>Reader</span>
                   </Link>
-                </li>
+                </li> */}
               </AppList>
             </div>
           </Row>

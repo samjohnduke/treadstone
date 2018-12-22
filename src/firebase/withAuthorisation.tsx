@@ -3,13 +3,13 @@ import * as React from "react";
 import { firebase } from "../firebase";
 import { AuthUserContext } from "./context";
 
-import * as fb from "firebase";
+import { User } from "firebase/app";
 
 interface UserProps {
-  user?: fb.User | null;
+  user?: User | null;
 }
 
-type Condition = (user: fb.User | null) => boolean;
+type Condition = (user: User | null) => boolean;
 
 export function withAuthorization<T>(condition: Condition, route: string) {
   function WithAuth(Component: React.ComponentType<UserProps>) {

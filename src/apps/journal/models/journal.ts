@@ -1,4 +1,3 @@
-import * as firebase from "firebase";
 import { Record } from "immutable";
 import { firestore } from "src/firebase/firebase";
 import { Doc, Ref } from "src/firebase/firestore";

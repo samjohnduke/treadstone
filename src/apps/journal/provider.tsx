@@ -46,7 +46,7 @@ export function withJournalProvider<T>(Component: React.ComponentType<T>) {
 
       return (
         <JournalContext.Provider value={list}>
-          <Component />
+          <Component {...this.props} />
         </JournalContext.Provider>
       );
     }

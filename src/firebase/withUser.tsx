@@ -1,10 +1,10 @@
 import * as React from "react";
 import { AuthUserContext } from "./context";
 
-import * as fb from "firebase";
+import { User } from "firebase/app";
 
 export interface UserProps {
-  user?: fb.User | null;
+  user?: User | null;
 }
 
 export function withUser<T>(Component: React.ComponentType<T & UserProps>) {

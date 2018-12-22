@@ -3,6 +3,7 @@ import styled from "src/styled";
 export const ActionBar = styled.div`
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   background: transparent;
   padding: 10px 0px;
   margin: 0 0px 20px;
@@ -45,8 +46,10 @@ export const ActionBar = styled.div`
 export const Left = styled.div`
   flex: 1;
   display: flex;
+  align-items: center;
 `;
 
 export const Right = styled.div`
   display: flex;
+  align-items: center;
 `;
