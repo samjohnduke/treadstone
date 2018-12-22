@@ -74,7 +74,7 @@ export const NewJournalForm = withFormik<FormProps, FormValues>({
         tags: values.tags.split(",").map(t => t.trim()),
         title: values.title
       })
-      .then(a => navigate(`./${a.id}/edit`));
+      .then(a => navigate(`${a.id}/edit`));
   },
   mapPropsToValues: () => ({ title: "", content: "", tags: "" }),
   validate: values => {

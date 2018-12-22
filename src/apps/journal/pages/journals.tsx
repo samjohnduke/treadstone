@@ -10,26 +10,10 @@ type Props = RouteComponentProps & {
   journals: Journal[];
 };
 
-const List = styled("div")`
-  margin-top: 10px;
-
-  @media (max-width: 800px) {
-    flex: 1;
-    padding: 0 10px;
-  }
-`;
-
 const Container = styled("div")`
   flex: 1;
-
-  & > ${List} {
-    max-width: 800px;
-    margin: 30px auto;
-
-    @media (max-width: 800px) {
-      margin: 10px auto;
-    }
-  }
+  max-width: 800px;
+  margin: 0 auto;
 `;
 
 export class JournalListPageComponent extends React.Component<Props> {
@@ -65,9 +49,8 @@ export class JournalListPageComponent extends React.Component<Props> {
             </div>
           </div>
         </div>
-        <List>
-          <JournalList list={this.props.journals} />
-        </List>
+
+        <JournalList list={this.props.journals} />
       </Container>
     );
   }

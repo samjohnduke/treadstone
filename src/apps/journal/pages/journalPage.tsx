@@ -1,4 +1,4 @@
-import { Link, RouteComponentProps } from "@reach/router";
+import { Link, navigate, RouteComponentProps } from "@reach/router";
 import * as React from "react";
 import { Journal } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
@@ -12,15 +12,13 @@ const Meta = styled("div")`
   color: #888;
   padding: 5px 0 25px;
 
-  @media (max-width: 800px) {
+  & > div {
+    padding: 0 10px 0 0;
+  }
+
+  @media (max-width: 600px) {
     flex-direction: column;
   }
-`;
-
-const TagList = styled("div")``;
-
-const Created = styled("div")`
-  padding: 0 10px 0 0;
 `;
 
 type Props = RouteComponentProps & {
@@ -39,6 +37,10 @@ const TitleBar = styled("div")`
     color: #111;
     margin-bottom: 5px;
     margin-top: 5px;
+
+    @media (max-width: 800px) {
+      font-size: 1.7em;
+    }
   }
 
   & a {
@@ -47,14 +49,9 @@ const TitleBar = styled("div")`
 `;
 
 const TopContainer = styled("div")`
-  display: flex;
-  align-items: center;
+  display: block;
   border-bottom: 1px solid #ccc;
   margin-bottom: 30px;
-
-  @media (max-width: 800px) {
-    flex-direction: column;
-  }
 `;
 
 class JournalPageComponent extends React.Component<Props> {
@@ -76,7 +73,13 @@ class JournalPageComponent extends React.Component<Props> {
               <span>Edit</span>
             </Link>
 
-            <a href="" onClick={() => console.log("test")}>
+            <a
+              href=""
+              onClick={e => {
+                e.preventDefault();
+                journal.ref.delete().then(() => navigate("/app/journal"));
+              }}
+            >
               <i className="material-icons">delete</i>
               <span>Trash</span>
             </a>
@@ -84,31 +87,27 @@ class JournalPageComponent extends React.Component<Props> {
         </ActionBar>
 
         <TopContainer>
-          <div>
-            <TitleBar>
-              <h1>{journal.title}</h1>
-            </TitleBar>
+          <TitleBar>
+            <h1>{journal.title}</h1>
+          </TitleBar>
 
-            <Meta>
-              <Created>
-                <strong>Created at: </strong>
-                <span>{journal.createdAtDate()}</span>
-              </Created>
-              <TagList>
-                <strong>Tags: </strong>
-                <span>{journal.tags.join(", ")}</span>
-              </TagList>
-            </Meta>
-          </div>
+          <Meta>
+            <div>
+              <strong>Created at: </strong>
+              <span>{journal.createdAtDate()}</span>
+            </div>
+            <div>
+              <strong>Tags: </strong>
+              <span>{journal.tags.join(", ")}</span>
+            </div>
+          </Meta>
         </TopContainer>
 
-        <div>
-          <RichTextView
-            key={journal.key}
-            value={journal.content}
-            readOnly={true}
-          />
-        </div>
+        <RichTextView
+          key={journal.key}
+          value={journal.content}
+          readOnly={true}
+        />
       </Container>
     ) : null;
   }

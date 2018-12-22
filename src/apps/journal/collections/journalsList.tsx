@@ -8,6 +8,15 @@ interface Props {
   list: Journal[];
 }
 
+const Container = styled("div")`
+  margin-top: 10px;
+
+  @media (max-width: 800px) {
+    flex: 1;
+    padding: 0 10px;
+  }
+`;
+
 const List = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,13 +47,13 @@ export class JournalList extends React.Component<Props> {
   public render() {
     const { list } = this.props;
     return (
-      <>
+      <Container>
         <List>
           {list.map(val => (
             <ListElement key={val.key} journal={val} />
           ))}
         </List>
-      </>
+      </Container>
     );
   }
 }
