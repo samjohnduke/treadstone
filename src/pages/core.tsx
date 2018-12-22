@@ -24,6 +24,7 @@ import { UserProvider } from "src/providers/user";
 
 // const ProjectsPage = React.lazy(() => import("src/apps/projects"));
 const JournalsPage = React.lazy(() => import("src/apps/journal"));
+const ListsPage = React.lazy(() => import("src/apps/lists"));
 
 type Props = UserProps & RouteComponentProps;
 
@@ -48,6 +49,10 @@ export class Core extends React.Component<Props> {
                     userId={this.props.user.uid}
                     list={[]}
                     path={`${routes.JOURNAL}/*`}
+                  />
+                  <ListsPage
+                    userId={this.props.user.uid}
+                    path={`${routes.LISTS}/*`}
                   />
                   {/* <StocksPage path={`${routes.STOCKS}/*`} />
                   <BookmarksPage path={`${routes.BOOKMARKS}/*`} />

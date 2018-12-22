@@ -7,7 +7,8 @@ import {
   // BOOKMARKS,
   // CONTACTS,
   // FEEDS,
-  JOURNAL
+  JOURNAL,
+  LISTS
   // PROJECTS
   // STOCKS,
 } from "src/constants/routes";
@@ -110,6 +111,12 @@ export class HomePage extends React.Component<RouteComponentProps> {
                   <Link to={JOURNAL}>
                     <i className="material-icons">book</i>
                     <span>Journal</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={LISTS}>
+                    <i className="material-icons">list</i>
+                    <span>Lists</span>
                   </Link>
                 </li>
                 {/* <li>
