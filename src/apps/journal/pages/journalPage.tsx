@@ -3,7 +3,7 @@ import * as React from "react";
 import { Journal } from "src/apps/journal/models/journal";
 import RichTextView from "src/components/viewer";
 import styled from "src/styled";
-import { ActionBar } from "../components/actionBar";
+import { ActionBar, Left, Right } from "../components/actionBar";
 import { Container } from "../components/container";
 import { withJournal } from "../withJournal";
 
@@ -63,28 +63,28 @@ class JournalPageComponent extends React.Component<Props> {
     return journal ? (
       <Container>
         <ActionBar>
-          <div className="left">
+          <Left>
             <a href="#" onClick={() => window.history.go(-1)}>
               <i className="material-icons">keyboard_backspace</i>
               <span>Back</span>
             </a>
-          </div>
+          </Left>
 
-          <div className="right">
+          <Right className="right">
             <Link to="edit">
               <i className="material-icons">edit</i>
               <span>Edit</span>
             </Link>
 
-            <Link to="">
+            <a href="" onClick={() => console.log("test")}>
               <i className="material-icons">delete</i>
               <span>Trash</span>
-            </Link>
-          </div>
+            </a>
+          </Right>
         </ActionBar>
 
         <TopContainer>
-          <div style={{ flex: 1, width: "100%" }}>
+          <div>
             <TitleBar>
               <h1>{journal.title}</h1>
             </TitleBar>

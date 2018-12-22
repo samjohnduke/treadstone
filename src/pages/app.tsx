@@ -15,18 +15,23 @@ import styled from "src/styled";
 
 const AppList = styled("ul")`
   list-style: none;
-  display: flex;
+  display: grid;
   margin: 0;
   padding: 0;
+  width: 100%;
+  flex: 1;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
   & li {
-    padding: 10px 30px;
-
-    &:first-of-type {
-      padding: 10px 30px 10px 10px;
-    }
-
     & a {
+      width: 100%;
+      display: block;
+      padding: 10px;
       color: #000;
       text-decoration: none;
       text-align: center;
@@ -42,6 +47,23 @@ const AppList = styled("ul")`
       }
     }
   }
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex: 1;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  & > div {
+    flex: 1;
+  }
+`;
+
+const FullWidth = styled.div`
+  width: 100%;
 `;
 
 export class HomePage extends React.Component<RouteComponentProps> {
@@ -61,16 +83,14 @@ export class HomePage extends React.Component<RouteComponentProps> {
 
     return (
       <AppPage>
-        <div
-          style={{ width: "100%", display: "flex", flexDirection: "column" }}
-        >
-          <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
-            <div style={{ flex: "1", margin: "0 auto" }}>
+        <FullWidth>
+          <Row>
+            <div>
               <h2 style={{ fontSize: "2em" }}>{title}</h2>
             </div>
-          </div>
-          <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
-            <div style={{ flex: "1", margin: "0 auto" }}>
+          </Row>
+          <Row>
+            <div>
               <h3>Recent Apps</h3>
               <AppList>
                 <li>
@@ -99,14 +119,14 @@ export class HomePage extends React.Component<RouteComponentProps> {
                 </li>
               </AppList>
             </div>
-          </div>
-          <div style={{ display: "flex", flex: 1, padding: "10px 20px" }}>
-            <div style={{ flex: "1", maxWidth: 800, margin: "0 auto" }}>
+          </Row>
+          <Row>
+            <div>
               <h3>Recent Activity</h3>
               <p>Nothing has happened recently.</p>
             </div>
-          </div>
-        </div>
+          </Row>
+        </FullWidth>
       </AppPage>
     );
   }

@@ -35,18 +35,18 @@ export const ActionBar = styled.div`
     }
   }
 
-  & .left {
-    flex: 1;
-    display: flex;
-  }
-
-  & .right {
-    display: flex;
-  }
-
   @media (max-width: 800px) {
     background: #fff;
     margin: 0 -10px 20px;
     padding: 10px 10px;
   }
+`;
+
+export const Left = styled.div`
+  flex: 1;
+  display: flex;
+`;
+
+export const Right = styled.div`
+  display: flex;
 `;
