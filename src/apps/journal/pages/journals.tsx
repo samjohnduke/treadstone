@@ -12,7 +12,7 @@ type Props = RouteComponentProps & {
 
 const Container = styled("div")`
   flex: 1;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
 `;
 
@@ -25,10 +25,10 @@ export class JournalListPageComponent extends React.Component<Props> {
             style={{
               alignItems: "center",
               display: "flex",
-              flex: "1 1 800px",
+              flex: "1 1 960px",
               justifyContent: "center",
               margin: "0 auto",
-              maxWidth: 800
+              maxWidth: 960
             }}
           >
             <h2 style={{ flex: 1, fontSize: "2em" }}>My Journal</h2>

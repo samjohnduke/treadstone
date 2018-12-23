@@ -54,9 +54,9 @@ const AppList = styled("ul")`
 const Row = styled.div`
   display: flex;
   flex: 1;
-  padding: 10px 20px;
+  padding: 10px 10px;
   width: 100%;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
 
   & > div {

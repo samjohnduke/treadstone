@@ -32,8 +32,9 @@ const Bar = styled("div")`
   }
 
   & .inner {
-    padding: 0 20px;
+    padding: 0 10px;
     height: 60px;
+    max-width: 960px;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -47,6 +48,20 @@ const Bar = styled("div")`
 
     & a {
       text-decoration: none;
+    }
+
+    & span {
+      font-family: sans-serif;
+      font-size: 1.6em;
+      background: #333;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      text-align: center;
+      border-radius: 22.5px;
+      padding-top: 5px;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -82,7 +97,7 @@ const Bar = styled("div")`
 `;
 
 const Left = styled("div")`
-  flex: 0 150px;
+  flex: 0 190px;
   padding: 0 10px 0 0;
   align-items: flex-start;
   justify-content: flex-start;
@@ -105,6 +120,7 @@ const Right = styled("div")`
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+
   @media (max-width: 450px) {
     flex: 1;
   }
@@ -112,8 +128,9 @@ const Right = styled("div")`
 
 const Center = styled("div")`
   flex: 1;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (max-width: 450px) {
     display: none;
@@ -154,7 +171,10 @@ export class AppBarComponent extends React.Component<Props> {
         <div className="inner">
           <Left>
             <h1>
-              <Link to={APP}>Treadstone</Link>
+              <Link to={APP}>
+                <span>T</span>
+                <span style={{ display: "none" }}>Treadstone</span>
+              </Link>
             </h1>
           </Left>
 
@@ -162,7 +182,7 @@ export class AppBarComponent extends React.Component<Props> {
             <input
               style={{
                 display: "block",
-                margin: "auto",
+
                 maxWidth: "500px",
                 width: "100%"
               }}
