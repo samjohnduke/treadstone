@@ -11,9 +11,11 @@ export interface IList {
   name: string;
   createdAt: firebase.firestore.Timestamp;
   items: Item[];
+  archived: boolean;
 }
 
 export const ListRecord = Record({
+  archived: false,
   createdAt: Date.now(),
   items: [],
   name: ""
@@ -25,6 +27,7 @@ export class List extends ListRecord implements IList, Ref {
   public name: string;
   public createdAt: firebase.firestore.Timestamp;
   public items: Item[];
+  public archived: boolean;
 
   constructor(
     key: string,
