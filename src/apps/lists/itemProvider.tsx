@@ -50,6 +50,25 @@ export function withItemProvider<T extends React.ComponentClass>(
       this.subscription.unsubscribe();
     }
 
+    public componentWillReceiveProps(nextProps: InterfaceProps) {
+      if (this.props.listId !== nextProps.listId) {
+        this.subscription.unsubscribe();
+
+        const { collection, ref } = ListItemCollection(
+          nextProps.userId,
+          nextProps.listId
+        );
+
+        this.ref = ref;
+
+        this.subscription = collection.subscribe(items => {
+          this.setState({ items });
+        });
+
+        this.setState({ items: [] });
+      }
+    }
+
     public render() {
       const props = this.props as any;
       return (

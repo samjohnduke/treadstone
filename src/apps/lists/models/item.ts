@@ -7,15 +7,15 @@ import { Doc, Ref } from "src/firebase/firestore";
 export interface IListItem {
   content: string;
   createdAt: firebase.firestore.Timestamp;
-  completedAt: firebase.firestore.Timestamp;
+  completedAt: firebase.firestore.Timestamp | null;
   listId: string;
 }
 
 export const ListItemRecord = Record({
-  archived: false,
+  completedAt: null,
+  content: "",
   createdAt: Date.now(),
-  items: [],
-  name: ""
+  listId: ""
 });
 
 export class ListItem extends ListItemRecord implements IListItem, Ref {
@@ -54,7 +54,8 @@ export function ListItemCollection(userId: string, listId: string) {
   const col = collection(ref).pipe(
     map(items =>
       items.map(i => {
-        return ListItemFactory.fromFirebase(i);
+        const j = new ListItem(i.id, i.ref, i.data() as IListItem);
+        return j;
       })
     )
   );

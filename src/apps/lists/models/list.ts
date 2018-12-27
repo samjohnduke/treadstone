@@ -5,12 +5,10 @@ import { Doc, Ref } from "src/firebase/firestore";
 import { collection, doc as DocRefChanges } from "rxfire/firestore";
 
 import { map } from "rxjs/operators";
-import { ListItem } from "./item";
 
 export interface IList {
   name: string;
   createdAt: firebase.firestore.Timestamp;
-  items: ListItem[];
   archived: boolean;
 }
 
@@ -26,7 +24,6 @@ export class List extends ListRecord implements IList, Ref {
   public ref: firebase.firestore.DocumentReference;
   public name: string;
   public createdAt: firebase.firestore.Timestamp;
-  public items: ListItem[];
   public archived: boolean;
 
   constructor(

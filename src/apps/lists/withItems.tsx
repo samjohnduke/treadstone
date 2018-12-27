@@ -6,6 +6,7 @@ export function withItems<T extends React.ComponentClass>(Component: T): T {
     return (
       <ListItemContext.Consumer>
         {val => {
+          // console.log(val.all);
           return (
             <Component
               {...props}
