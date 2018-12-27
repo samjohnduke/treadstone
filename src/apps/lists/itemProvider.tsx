@@ -13,7 +13,9 @@ interface InterfaceState {
   items: ListItem[];
 }
 
-export function withItemProvider<T>(Component: React.ComponentType<T>) {
+export function withItemProvider<T extends React.ComponentClass>(
+  Component: T
+): T {
   class WithItemProvider extends React.Component<
     T & InterfaceProps,
     InterfaceState
@@ -49,9 +51,10 @@ export function withItemProvider<T>(Component: React.ComponentType<T>) {
     }
 
     public render() {
+      const props = this.props as any;
       return (
         <ListItemContext.Provider value={this.provider()}>
-          <Component {...this.props} />
+          <Component {...props} />
         </ListItemContext.Provider>
       );
     }
@@ -79,5 +82,5 @@ export function withItemProvider<T>(Component: React.ComponentType<T>) {
     };
   }
 
-  return WithItemProvider;
+  return (WithItemProvider as any) as T;
 }

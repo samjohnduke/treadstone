@@ -9,8 +9,8 @@ export interface JournalProps {
   actions?: ActionProps;
 }
 
-export function withList<T>(Component: React.ComponentType<T & JournalProps>) {
-  const WithList = (props: T & JournalProps) => {
+export function withList<T extends React.ComponentClass>(Component: T): T {
+  const WithList = (props: any) => {
     return (
       <ListContext.Consumer>
         {val => (
@@ -28,5 +28,5 @@ export function withList<T>(Component: React.ComponentType<T & JournalProps>) {
     );
   };
 
-  return WithList;
+  return (WithList as any) as T;
 }

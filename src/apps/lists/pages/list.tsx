@@ -3,14 +3,20 @@ import * as React from "react";
 
 import styled from "src/styled";
 
+import { withItemProvider } from "../itemProvider";
+import { ListItem } from "../models/item";
 import { List } from "../models/list";
+import { withItems } from "../withItems";
 import { withList } from "../withList";
 import { ActionProps } from "../withLists";
 
 type Props = RouteComponentProps & {
   listId: string;
   list?: List;
+  items?: ListItem[];
   actions?: ActionProps;
+  itemActions?: ActionProps;
+  userId: string;
 };
 
 const Container = styled.div`
@@ -30,18 +36,27 @@ interface ListsState {
   newOpen: boolean;
 }
 
-export class ListPageC extends React.Component<Props, ListsState> {
+@withList
+@withItemProvider
+@withItems
+export class ListPage extends React.Component<Props, ListsState> {
   public state: ListsState = {
     newOpen: false
   };
   public render() {
-    console.log(this.props);
+    const items = this.props.items || [];
+    console.log(items.map(t => t.toJS()));
     return (
       <Container>
-        <Main />
+        <Main>
+          <h2>{this.props.list ? this.props.list.name : null}</h2>
+          <ul>
+            {items.map(i => (
+              <li key={i.key}>{i.content}</li>
+            ))}
+          </ul>
+        </Main>
       </Container>
     );
   }
 }
-
-export const ListPage = withList<Props>(ListPageC);

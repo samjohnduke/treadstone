@@ -39,7 +39,8 @@ const Main = styled.div`
   background: #fff;
 `;
 
-class ListsPageComponent extends React.Component<Props> {
+@withListProvider
+export class ListsPage extends React.Component<Props> {
   public render() {
     return (
       <AppPage>
@@ -49,7 +50,7 @@ class ListsPageComponent extends React.Component<Props> {
           </Aside>
           <Main>
             <Router primary={false} style={{ flex: 1 }}>
-              <ListPage path=":listId" listId="" />
+              <ListPage path=":listId" listId="" userId={this.props.userId} />
             </Router>
           </Main>
         </Container>
@@ -57,5 +58,3 @@ class ListsPageComponent extends React.Component<Props> {
     );
   }
 }
-
-export const ListsPage = withListProvider<Props>(ListsPageComponent);

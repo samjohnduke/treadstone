@@ -12,9 +12,11 @@ interface InterfaceState {
   list: List[];
 }
 
-export function withListProvider<T>(Component: React.ComponentType<T>) {
+export function withListProvider<T extends React.ComponentClass>(
+  Component: T
+): T {
   class WithJournalProvider extends React.Component<
-    T & InterfaceProps,
+    InterfaceProps,
     InterfaceState
   > {
     private subscription: Subscription;
@@ -44,9 +46,10 @@ export function withListProvider<T>(Component: React.ComponentType<T>) {
     };
 
     public render() {
+      const props = this.props as any;
       return (
         <ListContext.Provider value={this.provider()}>
-          <Component {...this.props} />
+          <Component {...props} />
         </ListContext.Provider>
       );
     }
@@ -72,5 +75,6 @@ export function withListProvider<T>(Component: React.ComponentType<T>) {
       return ref.id;
     };
   }
-  return WithJournalProvider;
+
+  return (WithJournalProvider as any) as T;
 }

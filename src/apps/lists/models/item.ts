@@ -49,10 +49,14 @@ export function ListItemCollection(userId: string, listId: string) {
     .doc(userId)
     .collection("listItems");
 
-  const ref = liRef.where("listId", "==", listId).orderBy("orderId", "desc");
+  const ref = liRef.where("listId", "==", listId).orderBy("order", "desc");
 
   const col = collection(ref).pipe(
-    map(items => items.map(i => ListItemFactory.fromFirebase(i)))
+    map(items =>
+      items.map(i => {
+        return ListItemFactory.fromFirebase(i);
+      })
+    )
   );
 
   return {
