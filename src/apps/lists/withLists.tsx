@@ -1,19 +1,32 @@
 import * as React from "react";
 import { ListContext } from "./context";
-import { List } from "./models/list";
+import { IList, List } from "./models/list";
 
-export interface JournalProps {
-  lists?: List[];
+export interface ActionProps {
+  create(o: string): Promise<string>;
+  update(o: IList): any;
+  delete(o: IList): any;
 }
 
-export function withLists<T>(Component: React.ComponentType<T & JournalProps>) {
-  const WithLists = (props: T) => {
-    return (
-      <ListContext.Consumer>
-        {val => <Component {...props} lists={val} />}
-      </ListContext.Consumer>
-    );
-  };
+export interface ListProps {
+  lists?: List[];
+  actions?: ActionProps;
+}
 
-  return WithLists;
+export function withLists<T extends React.ComponentClass>(Component: T): T {
+  return (((props: any) => (
+    <ListContext.Consumer>
+      {val => (
+        <Component
+          {...props}
+          lists={val.all}
+          actions={{
+            create: val.create,
+            delete: val.delete,
+            update: val.update
+          }}
+        />
+      )}
+    </ListContext.Consumer>
+  )) as any) as T;
 }

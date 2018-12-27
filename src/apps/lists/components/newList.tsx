@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
+import { navigate } from "@reach/router";
 import VisuallyHidden from "@reach/visually-hidden";
 
 import styled from "src/styled";
@@ -9,6 +10,7 @@ import styled from "src/styled";
 export interface NewListProps {
   showing: boolean;
   close(): void;
+  create(name: string): void;
 }
 
 interface NewListState {
@@ -44,7 +46,7 @@ export class NewList extends React.Component<NewListProps, NewListState> {
     const { showing, close } = this.props;
 
     return (
-      <Dialog style={{ position: "relative" }} isOpen={showing}>
+      <Dialog style={{ position: "relative", maxWidth: 500 }} isOpen={showing}>
         <Button className="close-button" onClick={close}>
           <VisuallyHidden>Close</VisuallyHidden>
           <i aria-hidden={true} className="material-icons">
@@ -52,21 +54,27 @@ export class NewList extends React.Component<NewListProps, NewListState> {
           </i>
         </Button>
         <>
-          <input
-            type="text"
-            name="listname"
-            placeholder="List name"
-            value={this.state.name}
-            onChange={e => this.setState({ name: e.target.value })}
-          />
+          <div>
+            <input
+              type="text"
+              name="listname"
+              placeholder="List name"
+              value={this.state.name}
+              onChange={e => this.setState({ name: e.target.value })}
+            />
+          </div>
+
           <button onClick={() => this.create()}>create</button>
         </>
       </Dialog>
     );
   }
 
-  private create() {
+  private create = async () => {
     const { name } = this.state;
-    console.log(name);
-  }
+    const key = await this.props.create(name);
+    console.log(key);
+    navigate(`lists/${key}`);
+    this.props.close();
+  };
 }

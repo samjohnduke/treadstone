@@ -18,6 +18,7 @@ export function withListProvider<T>(Component: React.ComponentType<T>) {
     InterfaceState
   > {
     private subscription: Subscription;
+    private ref: firebase.firestore.CollectionReference;
 
     constructor(props: any) {
       super(props);
@@ -28,12 +29,13 @@ export function withListProvider<T>(Component: React.ComponentType<T>) {
     }
 
     public componentDidMount = () => {
+      const listRef = ListCollection(this.props.userId);
+      this.ref = listRef.ref;
+
       if (this.props.userId && !this.subscription) {
-        this.subscription = ListCollection(this.props.userId).subscribe(
-          list => {
-            return this.setState({ list });
-          }
-        );
+        this.subscription = listRef.collection.subscribe(list => {
+          return this.setState({ list });
+        });
       }
     };
 
@@ -42,14 +44,33 @@ export function withListProvider<T>(Component: React.ComponentType<T>) {
     };
 
     public render() {
-      const { list } = this.state;
-
       return (
-        <ListContext.Provider value={list}>
+        <ListContext.Provider value={this.provider()}>
           <Component {...this.props} />
         </ListContext.Provider>
       );
     }
+
+    private provider = () => {
+      const { list } = this.state;
+
+      return {
+        all: list,
+        create: this.createList,
+        delete: console.log,
+        update: console.log
+      };
+    };
+
+    private createList = async (name: string) => {
+      const ref = await this.ref.add({
+        archived: false,
+        createdAt: Date.now(),
+        name
+      });
+
+      return ref.id;
+    };
   }
   return WithJournalProvider;
 }

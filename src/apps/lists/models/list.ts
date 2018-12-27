@@ -5,12 +5,12 @@ import { Doc, Ref } from "src/firebase/firestore";
 import { collection, doc as DocRefChanges } from "rxfire/firestore";
 
 import { map } from "rxjs/operators";
-import { Item } from "./item";
+import { ListItem } from "./item";
 
 export interface IList {
   name: string;
   createdAt: firebase.firestore.Timestamp;
-  items: Item[];
+  items: ListItem[];
   archived: boolean;
 }
 
@@ -26,7 +26,7 @@ export class List extends ListRecord implements IList, Ref {
   public ref: firebase.firestore.DocumentReference;
   public name: string;
   public createdAt: firebase.firestore.Timestamp;
-  public items: Item[];
+  public items: ListItem[];
   public archived: boolean;
 
   constructor(
@@ -47,17 +47,23 @@ export const ListFactory = {
 };
 
 export const ListCollection = (userId: string) => {
-  const collectionRef = firestore
+  const colRef = firestore
     .collection("users")
     .doc(userId)
-    .collection("lists")
-    .orderBy("createdAt", "desc");
+    .collection("lists");
 
-  return collection(collectionRef!).pipe(
+  const collectionRef = colRef.orderBy("createdAt", "desc");
+
+  const col = collection(collectionRef!).pipe(
     map(js => {
       return js.map((j: any) => ListFactory.fromFirebase(j));
     })
   );
+
+  return {
+    collection: col,
+    ref: colRef
+  };
 };
 
 export const ListDocument = (userId: string, documentId: string) => {
